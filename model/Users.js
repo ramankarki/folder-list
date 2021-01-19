@@ -17,6 +17,10 @@ const userSchema = mongoose.Schema({
     type: String,
     required: [true, "Google id is required"],
   },
+  joined: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 const User = mongoose.model("users", userSchema);
