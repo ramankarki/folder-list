@@ -3,6 +3,7 @@ const cookieSession = require("cookie-session");
 const passport = require("passport");
 const keys = require("./config/keys");
 const googleAuth = require("./routes/googleAuth");
+const folder = require("./routes/folder");
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(passport.session());
 
 // api routes
 app.use("/auth/google", googleAuth);
+app.use("/api/v1/folder", folder);
 
 // serve static build files in production
 
