@@ -50,18 +50,12 @@ router.route("/").get(
 
 // callback for exchanging code with data
 router.route("/callback").get(passport.authenticate("google"), (req, res) => {
-  res.status(200).json({
-    status: "success",
-    user: req.user,
-  });
+  res.redirect("/dashboard");
 });
 
 router.get("/logout", (req, res) => {
   req.logout();
-  res.status(200).json({
-    status: "success",
-    message: "you are logged out",
-  });
+  res.redirect("/");
 });
 
 router.get("/status", (req, res) => {
