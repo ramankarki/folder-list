@@ -5,7 +5,7 @@ const catchAsync = require("./../utils/catchAsync");
 exports.postFolder = catchAsync(async (req, res, next) => {
   const { title, description, listData } = req.body;
   const folder = await Folders.create({
-    // userID: req.user.id,
+    // userID of user is used @remaining
     userID: 15,
     title,
     description,
@@ -20,10 +20,12 @@ exports.postFolder = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllFolders = catchAsync(async (req, res, next) => {
-  const folders = await Folders.find({ userID: 15 });
+  // only folder of current user id will be queried, @remaining
+  const folders = await Folders.find();
 
   res.status(200).json({
     status: "success",
+    total: folders.length,
     folders,
   });
 });
@@ -33,5 +35,23 @@ exports.getFolder = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     folder,
+  });
+});
+
+exports.updateFolder = catchAsync(async (req, res, next) => {
+  const folder = await Folders.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
+  res.status(200).json({
+    status: "success",
+    folder,
+  });
+});
+
+exports.deleteFolder = catchAsync(async (req, res, next) => {
+  await Folders.findByIdAndDelete(req.params.id);
+  res.status(204).json({
+    status: "success",
+    message: `folder deleted with id: ${req.params.id}`,
   });
 });
