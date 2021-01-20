@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const folderSchema = mongoose.Schema({
-  userID: Number,
+  userID: String,
   title: {
     type: String,
     required: [true, "Title is required !"],
