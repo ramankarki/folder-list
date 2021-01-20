@@ -10,7 +10,6 @@ const { protect } = require("./../controller/auth");
 
 const router = express.Router();
 
-// this is protected route, @remaining
 router.route("/").post(protect, postFolder).get(protect, getAllFolders);
 
 // get single folder

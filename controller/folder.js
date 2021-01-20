@@ -5,8 +5,7 @@ const catchAsync = require("./../utils/catchAsync");
 exports.postFolder = catchAsync(async (req, res, next) => {
   const { title, description, listData } = req.body;
   const folder = await Folders.create({
-    // userID of user is used @remaining
-    userID: 15,
+    userID: req.user.id,
     title,
     description,
     updatedAt: Date.now(),
@@ -20,8 +19,7 @@ exports.postFolder = catchAsync(async (req, res, next) => {
 });
 
 exports.getAllFolders = catchAsync(async (req, res, next) => {
-  // only folder of current user id will be queried, @remaining
-  const folders = await Folders.find();
+  const folders = await Folders.find({ userID: req.user.id });
 
   res.status(200).json({
     status: "success",
