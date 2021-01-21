@@ -1,0 +1,113 @@
+.header {
+  background-color: #212121;
+}
+
+.header-img {
+  width: 50px;
+}
+
+.logo {
+  color: white;
+  font-weight: 700;
+  font-size: 1.6rem;
+  @media (min-width: 576px) {
+    font-size: 2rem;
+  }
+
+  &-img {
+    margin-right: 0.5rem;
+  }
+
+  &:hover {
+    color: #63e0c1;
+  }
+}
+
+.login-logout {
+  position: relative;
+}
+
+.login-button {
+  border: 1px solid #9cffe7;
+  background-color: inherit;
+  color: white;
+  border-radius: 0.3rem;
+  padding: 0.4rem 1rem;
+  display: block;
+
+  &:hover {
+    color: #63e0c1;
+    text-decoration: none;
+  }
+}
+
+.logout-button {
+  display: block;
+  background-color: #bb0c0c;
+  color: rgb(214, 214, 214);
+  padding: 0.5rem 1rem;
+  border-radius: 0.4rem;
+  position: absolute;
+  right: 0;
+  margin-top: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+
+  &::before {
+    content: "";
+    display: block;
+    border: 10px solid transparent;
+    border-bottom-color: #bb0c0c;
+    position: absolute;
+    top: -19px;
+    right: 15px;
+  }
+
+  &:hover::before {
+    border-bottom-color: #9b0c0c;
+  }
+
+  &:hover,
+  &:active,
+  &:visited {
+    color: rgb(214, 214, 214);
+    text-decoration: none;
+  }
+
+  &:hover {
+    background-color: #9b0c0c;
+  }
+}
+
+.userEmail {
+  color: #9cffe7;
+  font-size: 0.8rem;
+  font-weight: 400;
+
+  @media (max-width: 576px) {
+    display: none;
+  }
+}
+
+.userProfile {
+  cursor: pointer;
+  &-img {
+    border-radius: 100rem;
+    margin-left: 0.5rem;
+  }
+}
+
+.btn-primary {
+  background-color: #212121;
+  border-color: #9cffe7;
+}
+
+.googleButtonText {
+  @media (max-width: 576px) {
+    display: none;
+  }
+}
+
+.bi-google {
+  font-size: 1.2rem;
+}
