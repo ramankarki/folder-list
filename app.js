@@ -1,7 +1,7 @@
 const express = require("express");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 
 const keys = require("./config/keys");
 const googleAuth = require("./routes/googleAuth");
