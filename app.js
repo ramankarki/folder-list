@@ -2,7 +2,7 @@ const express = require("express");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
 
-if (!process.env.production && process.env.production !== "production") {
+if (!process.env.NODE_ENV && process.env.NODE_ENV !== "production") {
   const morgan = require("morgan");
 }
 
