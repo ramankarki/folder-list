@@ -20,7 +20,13 @@ class Header extends React.Component {
             event.stopPropagation();
           }}
         >
-          <span className="userEmail">{this.props.user.user.email}</span>
+          <span className="userEmail">
+            <i
+              className="bi bi-caret-down-fill"
+              style={{ marginRight: ".3rem" }}
+            ></i>
+            {this.props.user.user.email}
+          </span>
           <img
             className="header-img userProfile-img"
             src={this.props.user.user.photo}
