@@ -1,7 +1,10 @@
 const express = require("express");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
-// const morgan = require("morgan");
+
+if (!process.env.production && process.env.production !== "production") {
+  const morgan = require("morgan");
+}
 
 const keys = require("./config/keys");
 const googleAuth = require("./routes/googleAuth");
