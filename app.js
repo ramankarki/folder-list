@@ -49,10 +49,30 @@ app.use("/auth/google", googleAuth);
 app.use("/api/v1/folder", folder);
 
 // serve static build files in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(__dirname + "/client/build"));
 
-app.all("*", (req, res, next) => {
-  next(new OperationalError(404, `Can't find ${req.originalUrl} on this API`));
-});
+  app.get("/dashboard", (req, res) => {
+    if (!req.user) {
+      return res.redirect("/");
+    }
+    res.sendFile(__dirname + "/client/build/index.html");
+  });
+
+  app.get("/dashboard/:id", (req, res) => {
+    if (!req.user) {
+      return res.redirect("/");
+    }
+    res.sendFile(__dirname + "/client/build/index.html");
+  });
+
+  app.all("*", (req, res) => {
+    if (!req.user) {
+      return res.redirect("/");
+    }
+    res.sendFile(__dirname + "/client/build/index.html");
+  });
+}
 
 // global error handler
 app.use(globalErrorHandler);
