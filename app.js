@@ -1,9 +1,10 @@
 const express = require("express");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
+let morgan;
 
-if (!process.env.NODE_ENV && process.env.NODE_ENV !== "production") {
-  const morgan = require("morgan");
+if (process.env.NODE_ENV === "development") {
+  morgan = require("morgan");
 }
 
 const keys = require("./config/keys");
