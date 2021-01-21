@@ -10,7 +10,6 @@ const keys = require("./config/keys");
 const googleAuth = require("./routes/googleAuth");
 const folder = require("./routes/folder");
 const globalErrorHandler = require("./controller/globalError");
-const OperationalError = require("./utils/OperationalError");
 
 const app = express();
 
