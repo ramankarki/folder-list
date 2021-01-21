@@ -44,7 +44,7 @@
 .logout-button {
   display: block;
   background-color: #bb0c0c;
-  color: rgb(214, 214, 214);
+  color: rgb(255, 255, 255);
   padding: 0.5rem 1rem;
   border-radius: 0.4rem;
   position: absolute;
@@ -70,7 +70,7 @@
   &:hover,
   &:active,
   &:visited {
-    color: rgb(214, 214, 214);
+    color: rgb(255, 255, 255);
     text-decoration: none;
   }
 
