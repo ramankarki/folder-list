@@ -22,3 +22,20 @@ nav {
 body {
   font-family: "Comic Neue", cursive;
 }
+
+.app {
+  background-color: #323232;
+}
+
+.footer-text {
+  margin: 0;
+  padding: 3rem 0;
+  text-align: center;
+  color: #1d9fa3;
+  font-size: 0.9rem;
+
+  a {
+    color: #43dbe1;
+    text-decoration: underline;
+  }
+}

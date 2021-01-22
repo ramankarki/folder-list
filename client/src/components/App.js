@@ -13,11 +13,18 @@ import { activeDropdown } from "../actions";
 class App extends React.Component {
   render() {
     return (
-      <section onClick={() => this.props.activeDropdown("app-container")}>
+      <section
+        onClick={() => this.props.activeDropdown("app-container")}
+        className="app"
+      >
         <BrowserRouter>
           <Header />
           <Route path="/" exact component={Landing} />
           <Route path="/dashboard" exact component={Dashboard} />
+          <p className="footer-text">
+            Full stack app coded by{" "}
+            <a href="https://github.com/ramankarki">Raman Karki</a>
+          </p>
         </BrowserRouter>
       </section>
     );
