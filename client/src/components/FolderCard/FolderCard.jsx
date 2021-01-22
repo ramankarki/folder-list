@@ -6,7 +6,7 @@ class FolderCard extends React.Component {
     return (
       <section className="folderCard">
         <div className="settings-icon">
-          <i class="bi bi-gear-fill"></i>
+          <i className="bi bi-gear-fill"></i>
         </div>
         <h4 className="folderCard-heading">{this.props.heading}</h4>
         <p className="folderCard-desc">{this.props.desc}</p>
