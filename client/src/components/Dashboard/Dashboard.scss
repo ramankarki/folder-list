@@ -93,6 +93,13 @@
   position: fixed;
   top: 80%;
   right: 5%;
+  transition: transform 200ms ease-out;
+
+  @media (min-width: 992px) {
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
 }
 
 .bi-plus-circle {
