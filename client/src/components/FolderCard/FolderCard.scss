@@ -1,0 +1,48 @@
+.folderCard {
+  background-color: #2c2b2b;
+  padding: 1rem 1.5rem;
+  max-width: 280px;
+  width: 90%;
+  margin: auto;
+  border: 1px solid #2c2b2b;
+  cursor: pointer;
+  border-radius: 1rem;
+  text-align: center;
+
+  &:hover {
+    border-color: #32f0ac;
+  }
+
+  &-heading {
+    color: #43dbe1;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  &-desc {
+    color: #b1b1b1;
+    font-size: 0.9rem;
+  }
+
+  &-date {
+    width: 80%;
+    margin: auto;
+    color: #b1b1b1;
+    font-size: 0.65rem;
+    margin-top: 1.5rem;
+  }
+}
+.settings-icon {
+  max-width: max-content;
+  margin-left: auto;
+  margin-bottom: 0.5rem;
+}
+
+.bi-gear-fill {
+  font-size: 1.4rem;
+  color: #6e6e6e;
+
+  &:hover {
+    color: #dedede;
+  }
+}
