@@ -1,14 +1,61 @@
 import React from "react";
 import { connect } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 import { fetchUser } from "./../../actions/index";
 import illustration from "./dashboard-illustration.svg";
 import "./Dashboard.scss";
+import FolderCard from "./../FolderCard/FolderCard";
 
 class Dashboard extends React.Component {
+  data = [
+    {
+      heading: "shopping list",
+      desc: "It is a shopping list for next sunday at super market",
+      createdAt: "2020/1/1",
+      updatedAt: "2020/1/1",
+    },
+    {
+      heading: "work list",
+      desc: "It is a shopping list for next sunday at super market",
+      createdAt: "2020/1/1",
+      updatedAt: "2020/1/1",
+    },
+    {
+      heading: "project list",
+      desc: "It is a shopping list for next sunday at super market",
+      createdAt: "2020/1/1",
+      updatedAt: "2020/1/1",
+    },
+    {
+      heading: "song list",
+      desc: "It is a shopping list for next sunday at super market",
+      createdAt: "2020/1/1",
+      updatedAt: "2020/1/1",
+    },
+    {
+      heading: "movie list",
+      desc: "It is a shopping list for next sunday at super market",
+      createdAt: "2020/1/1",
+      updatedAt: "2020/1/1",
+    },
+  ];
+
   componentDidMount() {
     this.props.fetchUser();
   }
+
+  renderFolders = () => {
+    return this.data.map((card, index) => (
+      <FolderCard
+        key={index + "-" + uuidv4()}
+        heading={card.heading}
+        desc={card.desc}
+        createdAt={card.createdAt}
+        updatedAt={card.updatedAt}
+      />
+    ));
+  };
 
   render() {
     if (!this.props.user) {
@@ -31,6 +78,14 @@ class Dashboard extends React.Component {
             <img src={illustration} alt="svg illustration for dashboard" />
           </picture>
         </article>
+        <section className="folders">
+          <h3 className="folders-heading">{this.props.user.name}'s Folder</h3>
+          <p className="folders-desc">Total folders: {this.data.length}</p>
+          <div className="folders-grid">{this.renderFolders()}</div>
+        </section>
+        <button className="add-folder">
+          <i className="bi bi-plus-circle"></i>
+        </button>
       </section>
     );
   }
