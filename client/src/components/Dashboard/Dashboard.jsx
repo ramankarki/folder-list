@@ -16,8 +16,8 @@ class Dashboard extends React.Component {
     }
     return (
       <section className="dashboard">
-        <article className="dashboard-guideContainer container row">
-          <div className="dashboard-guide col-lg-6">
+        <article className="dashboard-guideContainer container row no-gutters">
+          <div className="dashboard-guide col-12 col-lg-6">
             <h1 className="dashboard-heading">
               Get Started, {this.props.user.name}
             </h1>
@@ -27,7 +27,7 @@ class Dashboard extends React.Component {
               <li>Keep your different todo-list in different folders</li>
             </ul>
           </div>
-          <picture className="dashboard-illustration col-lg-6">
+          <picture className="dashboard-illustration col-12 col-lg-6">
             <img src={illustration} alt="svg illustration for dashboard" />
           </picture>
         </article>
