@@ -23,7 +23,7 @@ const folderSchema = mongoose.Schema({
 });
 
 folderSchema.pre("save", function (next) {
-  this.slug = slugify(this.title, { lower: true, remove: /[*+~.()'"!:@]/g });
+  this.slug = slugify(this.title, { lower: true, remove: /[`*+~.()'"!$:@#]/g });
   next();
 });
 
