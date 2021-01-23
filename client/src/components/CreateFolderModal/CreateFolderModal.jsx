@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { connect } from "react-redux";
-import { onModalFieldChange } from "./../../actions/index";
+import { onModalFieldChange, activeDropdown } from "./../../actions/index";
 import "./CreateFolderModal.scss";
 
 class CreateFolder extends React.Component {
@@ -12,6 +12,7 @@ class CreateFolder extends React.Component {
 
     this.props.onModalFieldChange("title", "");
     this.props.onModalFieldChange("desc", "");
+    this.props.activeDropdown("exit-modal-btn");
   };
 
   render() {
@@ -60,4 +61,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { onModalFieldChange })(CreateFolder);
+export default connect(mapStateToProps, { onModalFieldChange, activeDropdown })(
+  CreateFolder
+);
