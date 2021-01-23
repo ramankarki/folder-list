@@ -53,3 +53,15 @@ export const fetchFolders = () => async (dispatch) => {
 
   dispatch({ type: FETCH_FOLDERS, payload: folders.data.folders });
 };
+
+export const updateFolder = (id, data) => async (dispatch, getState) => {
+  const updatedFolder = await axios.patch(`/api/v1/folder/${id}`, data);
+
+  const oldFolders = getState().folders;
+  const newFolders = oldFolders.map((folder) => {
+    if (folder._id === updatedFolder._id) return updatedFolder;
+    return folder;
+  });
+
+  dispatch({ type: FETCH_FOLDERS, payload: newFolders });
+};
