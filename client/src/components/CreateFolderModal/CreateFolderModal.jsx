@@ -2,17 +2,32 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { connect } from "react-redux";
-import { onModalFieldChange, activeDropdown } from "./../../actions/index";
+import {
+  onModalFieldChange,
+  activeDropdown,
+  updateFolder,
+  folderModalState,
+} from "./../../actions/index";
 import "./CreateFolderModal.scss";
 
 class CreateFolder extends React.Component {
   onSubmit = (event) => {
     event.preventDefault();
-    this.props.createFolder(this.props.modalTitle, this.props.modalDesc);
+
+    if (this.props.folderModalState === "create") {
+      this.props.createFolder(this.props.modalTitle, this.props.modalDesc);
+    } else if (this.props.folderModalStateValue.startsWith("edit")) {
+      const folderID = this.props.folderModalStateValue.split(" ")[1];
+      this.props.updateFolder(folderID, {
+        title: this.props.modalTitle,
+        description: this.props.modalDesc,
+      });
+    }
 
     this.props.onModalFieldChange("title", "");
     this.props.onModalFieldChange("desc", "");
     this.props.activeDropdown("exit-modal-btn");
+    this.props.folderModalState("");
   };
 
   render() {
@@ -58,9 +73,13 @@ const mapStateToProps = (state) => {
   return {
     modalTitle: state.modalTitle,
     modalDesc: state.modalDesc,
+    folderModalStateValue: state.folderModalState,
   };
 };
 
-export default connect(mapStateToProps, { onModalFieldChange, activeDropdown })(
-  CreateFolder
-);
+export default connect(mapStateToProps, {
+  onModalFieldChange,
+  activeDropdown,
+  updateFolder,
+  folderModalState,
+})(CreateFolder);
