@@ -1,14 +1,9 @@
 .folderCard {
   background-color: #2c2b2b;
   padding: 1rem 1.5rem;
-  margin: auto;
   border: 1px solid #2c2b2b;
   border-radius: 1rem;
   text-align: center;
-
-  @media (max-width: 576px) {
-    width: 90%;
-  }
 
   &:hover {
     border-color: #32f0ac;
@@ -26,7 +21,6 @@
   }
 
   &-date {
-    width: 80%;
     margin: auto;
     color: #b1b1b1;
     font-size: 0.65rem;
