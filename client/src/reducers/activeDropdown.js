@@ -1,6 +1,6 @@
 import { ACTIVE_ACTION_DROPDOWN } from "../actions/types";
 
-const activeDropdown = (state = null, action) => {
+const activeDropdown = (state = "", action) => {
   switch (action.type) {
     case ACTIVE_ACTION_DROPDOWN:
       return action.payload;
