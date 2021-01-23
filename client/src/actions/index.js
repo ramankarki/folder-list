@@ -5,6 +5,7 @@ import {
   ON_MODAL_TITLE_CHANGE,
   ON_MODAL_DESC_CHANGE,
   FETCH_FOLDERS,
+  FOLDER_MODAL_STATE,
 } from "./types";
 
 export const fetchUser = () => async (dispatch) => {
@@ -58,10 +59,20 @@ export const updateFolder = (id, data) => async (dispatch, getState) => {
   const updatedFolder = await axios.patch(`/api/v1/folder/${id}`, data);
 
   const oldFolders = getState().folders;
-  const newFolders = oldFolders.map((folder) => {
-    if (folder._id === updatedFolder._id) return updatedFolder;
+
+  const newFolder = oldFolders.map((folder) => {
+    if (folder._id === id) {
+      return updatedFolder.data.folder;
+    }
     return folder;
   });
 
-  dispatch({ type: FETCH_FOLDERS, payload: newFolders });
+  dispatch({ type: FETCH_FOLDERS, payload: newFolder });
+};
+
+export const folderModalState = (state) => {
+  return {
+    type: FOLDER_MODAL_STATE,
+    payload: state,
+  };
 };
