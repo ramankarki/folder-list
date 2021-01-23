@@ -2,10 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
-import { fetchUser } from "./../../actions/index";
+import { fetchUser, createFolder, activeDropdown } from "./../../actions/index";
 import illustration from "./dashboard-illustration.svg";
 import "./Dashboard.scss";
 import FolderCard from "./../FolderCard/FolderCard";
+import Modal from "./../CreateFolderModal/CreateFolderModal";
 
 class Dashboard extends React.Component {
   data = [
@@ -84,8 +85,17 @@ class Dashboard extends React.Component {
           <div className="folders-grid">{this.renderFolders()}</div>
         </section>
         <button className="add-folder">
-          <i className="bi bi-plus-circle"></i>
+          <i
+            className="bi bi-plus-circle"
+            onClick={(event) => {
+              this.props.activeDropdown("create-folder");
+              event.stopPropagation();
+            }}
+          ></i>
         </button>
+        {this.props.activeDropdownState === "create-folder" ? (
+          <Modal createFolder={this.props.createFolder} />
+        ) : null}
       </section>
     );
   }
@@ -93,7 +103,11 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = (state) => {
   if (!state.user) return { user: null };
-  return { user: state.user.user };
+  return { user: state.user.user, activeDropdownState: state.activeDropdown };
 };
 
-export default connect(mapStateToProps, { fetchUser })(Dashboard);
+export default connect(mapStateToProps, {
+  fetchUser,
+  createFolder,
+  activeDropdown,
+})(Dashboard);
