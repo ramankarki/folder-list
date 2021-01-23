@@ -23,6 +23,8 @@ class Dashboard extends React.Component {
     return this.props.folders.map((card, index) => (
       <FolderCard
         key={index + "-" + uuidv4()}
+        index={"folder-settings-" + index}
+        folderIndex={index}
         heading={card.title}
         desc={card.description ? card.description : null}
         createdAt={new Date(card.createdAt).toDateString()}
