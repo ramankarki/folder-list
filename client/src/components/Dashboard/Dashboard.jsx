@@ -7,6 +7,7 @@ import {
   createFolder,
   activeDropdown,
   fetchFolders,
+  folderModalState,
 } from "./../../actions/index";
 import illustration from "./dashboard-illustration.svg";
 import "./Dashboard.scss";
@@ -65,6 +66,7 @@ class Dashboard extends React.Component {
             className="bi bi-plus-circle"
             onClick={(event) => {
               this.props.activeDropdown("create-folder");
+              this.props.folderModalState("create");
               event.stopPropagation();
             }}
           ></i>
@@ -91,4 +93,5 @@ export default connect(mapStateToProps, {
   createFolder,
   activeDropdown,
   fetchFolders,
+  folderModalState,
 })(Dashboard);
