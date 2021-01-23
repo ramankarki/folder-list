@@ -5,6 +5,7 @@ import {
   ON_MODAL_TITLE_CHANGE,
   ON_MODAL_DESC_CHANGE,
   CREATE_FOLDER,
+  FETCH_FOLDERS,
 } from "./types";
 
 export const fetchUser = () => async (dispatch) => {
@@ -43,4 +44,10 @@ export const createFolder = (title, desc) => async (dispatch) => {
   const folder = await axios.post("/api/v1/folder", { title, description });
 
   dispatch({ type: CREATE_FOLDER, payload: folder.data });
+};
+
+export const fetchFolders = () => async (dispatch) => {
+  const folders = await axios.get("/api/v1/folder");
+
+  dispatch({ type: FETCH_FOLDERS, payload: folders.data });
 };
