@@ -4,6 +4,7 @@ import {
   ACTIVE_ACTION_DROPDOWN,
   ON_MODAL_TITLE_CHANGE,
   ON_MODAL_DESC_CHANGE,
+  CREATE_FOLDER,
 } from "./types";
 
 export const fetchUser = () => async (dispatch) => {
@@ -34,4 +35,12 @@ export const onModalFieldChange = (type, value) => {
       payload: value,
     };
   }
+};
+
+export const createFolder = (title, desc) => async (dispatch) => {
+  const description = desc ? desc : undefined;
+
+  const folder = await axios.post("/api/v1/folder", { title, description });
+
+  dispatch({ type: CREATE_FOLDER, payload: folder.data });
 };
