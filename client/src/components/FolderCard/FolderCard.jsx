@@ -10,12 +10,12 @@ class FolderCard extends React.Component {
         <div
           className="settings-icon"
           onClick={(event) => {
-            this.props.activeDropdown(this.props.index);
+            this.props.activeDropdown(this.props.folderID);
             event.stopPropagation();
           }}
         >
           <i className="bi bi-gear-fill"></i>
-          {this.props.activeDropdownState === this.props.index ? (
+          {this.props.activeDropdownState === this.props.folderID ? (
             <div className="folder-settings">
               <p>Edit</p>
               <p className="folder-delete">Delete</p>
