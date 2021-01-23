@@ -4,6 +4,7 @@
   border: 1px solid #2c2b2b;
   border-radius: 1rem;
   text-align: center;
+  position: relative;
 
   &:hover {
     border-color: #32f0ac;
@@ -41,4 +42,38 @@
   &:hover {
     color: #dedede;
   }
+}
+
+.folder-settings {
+  position: absolute;
+  padding: 0.7rem 0;
+  border-radius: 1rem;
+  color: #9d9d9d;
+  font-weight: 700;
+  background-color: rgb(8, 8, 8);
+  top: 3.5rem;
+  right: 0.7rem;
+
+  &::before {
+    content: "";
+    border: 10px solid transparent;
+    position: absolute;
+    top: -19px;
+    right: 14px;
+    border-bottom: 10px solid rgb(8, 8, 8);
+  }
+
+  p {
+    padding: 0.3rem 1.5rem;
+    cursor: pointer;
+    margin: 0;
+
+    &:hover {
+      background-color: rgb(37, 37, 37);
+    }
+  }
+}
+
+.folder-delete {
+  color: #bb0c0c;
 }

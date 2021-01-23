@@ -1,12 +1,26 @@
 import React from "react";
+import { connect } from "react-redux";
+import { activeDropdown } from "../../actions";
 import "./FolderCard.scss";
 
 class FolderCard extends React.Component {
   render() {
     return (
       <section className="folderCard">
-        <div className="settings-icon">
+        <div
+          className="settings-icon"
+          onClick={(event) => {
+            this.props.activeDropdown(this.props.index);
+            event.stopPropagation();
+          }}
+        >
           <i className="bi bi-gear-fill"></i>
+          {this.props.activeDropdownState === this.props.index ? (
+            <div className="folder-settings">
+              <p>Edit</p>
+              <p className="folder-delete">Delete</p>
+            </div>
+          ) : null}
         </div>
         <h4 className="folderCard-heading">{this.props.heading}</h4>
         <p className="folderCard-desc">{this.props.desc}</p>
@@ -27,4 +41,8 @@ class FolderCard extends React.Component {
   }
 }
 
-export default FolderCard;
+const mapStateToProps = (state) => {
+  return { activeDropdownState: state.activeDropdown };
+};
+
+export default connect(mapStateToProps, { activeDropdown })(FolderCard);
