@@ -19,15 +19,23 @@ nav {
   display: block;
 }
 
+html,
+body {
+  width: 100%;
+  height: 100vh;
+}
+
 body {
   font-family: "Comic Neue", cursive;
 }
 
 .app {
   background-color: #323232;
+  height: 100vh;
 }
 
 .footer-text {
+  background-color: #323232;
   margin: 0;
   padding: 3rem 0;
   text-align: center;
