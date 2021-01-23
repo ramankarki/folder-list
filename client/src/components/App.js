@@ -8,13 +8,22 @@ import Landing from "./Landing/Landing";
 import Header from "./Header/Header";
 import Dashboard from "./Dashboard/Dashboard";
 import "./App.scss";
-import { activeDropdown } from "../actions";
+import {
+  activeDropdown,
+  onModalFieldChange,
+  folderModalState,
+} from "../actions";
 
 class App extends React.Component {
   render() {
     return (
       <section
-        onClick={() => this.props.activeDropdown("app-container")}
+        onClick={() => {
+          this.props.activeDropdown("app-container");
+          this.props.onModalFieldChange("title", "");
+          this.props.onModalFieldChange("desc", "");
+          this.props.folderModalState("");
+        }}
         className="app"
       >
         <BrowserRouter>
@@ -31,4 +40,8 @@ class App extends React.Component {
   }
 }
 
-export default connect(null, { activeDropdown })(App);
+export default connect(null, {
+  activeDropdown,
+  onModalFieldChange,
+  folderModalState,
+})(App);
