@@ -3,13 +3,13 @@ const OperationalError = require("./../utils/OperationalError");
 const catchAsync = require("./../utils/catchAsync");
 
 exports.postFolder = catchAsync(async (req, res, next) => {
-  const { title, description, listData } = req.body;
+  const { title, description } = req.body;
   const folder = await Folders.create({
     userID: req.user.id,
     title,
     description,
     updatedAt: Date.now(),
-    listData,
+    listData: [],
   });
 
   res.status(201).json({
