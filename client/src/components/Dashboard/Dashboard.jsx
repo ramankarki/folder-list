@@ -2,58 +2,31 @@ import React from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
-import { fetchUser, createFolder, activeDropdown } from "./../../actions/index";
+import {
+  fetchUser,
+  createFolder,
+  activeDropdown,
+  fetchFolders,
+} from "./../../actions/index";
 import illustration from "./dashboard-illustration.svg";
 import "./Dashboard.scss";
 import FolderCard from "./../FolderCard/FolderCard";
 import Modal from "./../CreateFolderModal/CreateFolderModal";
 
 class Dashboard extends React.Component {
-  data = [
-    {
-      heading: "shopping list",
-      desc: "It is a shopping list for next sunday at super market",
-      createdAt: "2020/1/1",
-      updatedAt: "2020/1/1",
-    },
-    {
-      heading: "work list",
-      desc: "It is a shopping list for next sunday at super market",
-      createdAt: "2020/1/1",
-      updatedAt: "2020/1/1",
-    },
-    {
-      heading: "project list",
-      desc: "It is a shopping list for next sunday at super market",
-      createdAt: "2020/1/1",
-      updatedAt: "2020/1/1",
-    },
-    {
-      heading: "song list",
-      desc: "It is a shopping list for next sunday at super market",
-      createdAt: "2020/1/1",
-      updatedAt: "2020/1/1",
-    },
-    {
-      heading: "movie list",
-      desc: "It is a shopping list for next sunday at super market",
-      createdAt: "2020/1/1",
-      updatedAt: "2020/1/1",
-    },
-  ];
-
   componentDidMount() {
     this.props.fetchUser();
+    this.props.fetchFolders();
   }
 
   renderFolders = () => {
-    return this.data.map((card, index) => (
+    return this.props.folders.map((card, index) => (
       <FolderCard
         key={index + "-" + uuidv4()}
-        heading={card.heading}
-        desc={card.desc}
-        createdAt={card.createdAt}
-        updatedAt={card.updatedAt}
+        heading={card.title}
+        desc={card.description ? card.description : null}
+        createdAt={new Date(card.createdAt).toDateString()}
+        updatedAt={new Date(card.updatedAt).toDateString()}
       />
     ));
   };
@@ -81,7 +54,11 @@ class Dashboard extends React.Component {
         </article>
         <section className="folders">
           <h3 className="folders-heading">{this.props.user.name}'s Folder</h3>
-          <p className="folders-desc">Total folders: {this.data.length}</p>
+          {this.props.folders.length > 0 ? (
+            <p className="folders-desc">
+              Total folders: {this.props.folders.length}
+            </p>
+          ) : null}
           <div className="folders-grid">{this.renderFolders()}</div>
         </section>
         <button className="add-folder">
@@ -103,11 +80,16 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = (state) => {
   if (!state.user) return { user: null };
-  return { user: state.user.user, activeDropdownState: state.activeDropdown };
+  return {
+    user: state.user.user,
+    activeDropdownState: state.activeDropdown,
+    folders: state.folders,
+  };
 };
 
 export default connect(mapStateToProps, {
   fetchUser,
   createFolder,
   activeDropdown,
+  fetchFolders,
 })(Dashboard);

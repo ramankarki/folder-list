@@ -67,18 +67,22 @@
   &-grid {
     display: grid;
     grid-row-gap: 2rem;
-    width: 85%;
     margin: auto;
-    justify-content: center;
+    width: 90%;
+
+    @media (max-width: 576px) {
+      max-width: 300px;
+    }
 
     @media (min-width: 576px) {
       grid-template-columns: repeat(2, 1fr);
-      grid-gap: 2rem;
+      grid-gap: 3rem;
     }
 
     @media (min-width: 900px) {
+      width: 85%;
       grid-template-columns: repeat(3, 1fr);
-      grid-gap: 2rem;
+      grid-gap: 3rem;
       width: 80%;
     }
   }
