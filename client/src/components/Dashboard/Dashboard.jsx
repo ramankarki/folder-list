@@ -54,11 +54,9 @@ class Dashboard extends React.Component {
         </article>
         <section className="folders">
           <h3 className="folders-heading">{this.props.user.name}'s Folder</h3>
-          {this.props.folders.length > 0 ? (
-            <p className="folders-desc">
-              Total folders: {this.props.folders.length}
-            </p>
-          ) : null}
+          <p className="folders-desc">
+            Total folders: {this.props.folders.length}
+          </p>
           <div className="folders-grid">{this.renderFolders()}</div>
         </section>
         <button className="add-folder">
