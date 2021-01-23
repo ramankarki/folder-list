@@ -1,9 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
-import { activeDropdown } from "../../actions";
+import {
+  activeDropdown,
+  onModalFieldChange,
+  folderModalState,
+} from "../../actions";
 import "./FolderCard.scss";
 
 class FolderCard extends React.Component {
+  onEditClick = (event) => {
+    this.props.onModalFieldChange("title", this.props.heading);
+    this.props.onModalFieldChange("desc", this.props.desc);
+    this.props.activeDropdown("create-folder");
+    event.stopPropagation();
+  };
+
   render() {
     return (
       <section className="folderCard">
@@ -11,13 +22,14 @@ class FolderCard extends React.Component {
           className="settings-icon"
           onClick={(event) => {
             this.props.activeDropdown(this.props.folderID);
+            this.props.folderModalState(`edit ${this.props.folderID}`);
             event.stopPropagation();
           }}
         >
           <i className="bi bi-gear-fill"></i>
           {this.props.activeDropdownState === this.props.folderID ? (
             <div className="folder-settings">
-              <p>Edit</p>
+              <p onClick={this.onEditClick}>Edit</p>
               <p className="folder-delete">Delete</p>
             </div>
           ) : null}
@@ -45,4 +57,8 @@ const mapStateToProps = (state) => {
   return { activeDropdownState: state.activeDropdown };
 };
 
-export default connect(mapStateToProps, { activeDropdown })(FolderCard);
+export default connect(mapStateToProps, {
+  activeDropdown,
+  onModalFieldChange,
+  folderModalState,
+})(FolderCard);
