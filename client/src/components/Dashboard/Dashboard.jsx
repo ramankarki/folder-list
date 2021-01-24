@@ -13,6 +13,7 @@ import illustration from "./dashboard-illustration.svg";
 import "./Dashboard.scss";
 import FolderCard from "./../FolderCard/FolderCard";
 import Modal from "./../CreateFolderModal/CreateFolderModal";
+import DeleteModal from "./../DeleteModal/DeleteModal";
 
 class Dashboard extends React.Component {
   componentDidMount() {
@@ -73,6 +74,9 @@ class Dashboard extends React.Component {
         </button>
         {this.props.activeDropdownState === "create-folder" ? (
           <Modal createFolder={this.props.createFolder} />
+        ) : null}
+        {this.props.activeDropdownState === "delete-folder" ? (
+          <DeleteModal />
         ) : null}
       </section>
     );
