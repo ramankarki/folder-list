@@ -68,6 +68,12 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
+
+  @media (max-width: 575px) {
+    h4 {
+      font-size: 1.3rem;
+    }
+  }
 }
 
 .exit-modal-btn {
@@ -78,4 +84,5 @@
   font-size: 2.5rem;
   color: #14ffec;
   cursor: pointer;
+  fill: #323232;
 }
