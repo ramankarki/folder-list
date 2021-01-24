@@ -14,7 +14,7 @@ class CreateFolder extends React.Component {
   onSubmit = (event) => {
     event.preventDefault();
 
-    if (this.props.folderModalState === "create") {
+    if (this.props.folderModalStateValue === "create") {
       this.props.createFolder(this.props.modalTitle, this.props.modalDesc);
     } else if (this.props.folderModalStateValue.startsWith("edit")) {
       const folderID = this.props.folderModalStateValue.split(" ")[1];
