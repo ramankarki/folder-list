@@ -15,6 +15,14 @@ class FolderCard extends React.Component {
     event.stopPropagation();
   };
 
+  onDeleteClick = (event) => {
+    this.props.activeDropdown("delete-folder");
+    this.props.folderModalState(
+      `delete-${this.props.folderID}-${this.props.heading}`
+    );
+    event.stopPropagation();
+  };
+
   render() {
     return (
       <section className="folderCard">
@@ -30,7 +38,9 @@ class FolderCard extends React.Component {
           {this.props.activeDropdownState === this.props.folderID ? (
             <div className="folder-settings">
               <p onClick={this.onEditClick}>Edit</p>
-              <p className="folder-delete">Delete</p>
+              <p className="folder-delete" onClick={this.onDeleteClick}>
+                Delete
+              </p>
             </div>
           ) : null}
         </div>
