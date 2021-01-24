@@ -1,0 +1,59 @@
+.delete-modal {
+  background-color: #323232;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 400px;
+  margin: auto;
+
+  hr {
+    background-color: rgb(94, 94, 94);
+  }
+}
+
+.delete-heading {
+  color: #fd4141;
+  font-weight: 700;
+}
+
+.delete-que {
+  color: #999999;
+}
+
+.buttons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    padding: 0.3rem 1rem;
+    border: none;
+    border-radius: 1rem;
+    font-weight: 700;
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+.delete-btn {
+  margin-right: 1rem;
+  background-color: #bb0c0c;
+  color: white;
+
+  @media (min-width: 950px) {
+    &:hover {
+      background-color: #9c0d0d;
+    }
+  }
+}
+
+.cancel-btn {
+  background-color: rgb(197, 197, 197);
+  @media (min-width: 950px) {
+    &:hover {
+      background-color: rgb(110, 110, 110);
+    }
+  }
+}
