@@ -74,7 +74,9 @@ class CreateFolder extends React.Component {
               this.props.onModalFieldChange("desc", event.target.value)
             }
           />
-          <button className="add-folder-btn">Add</button>
+          <button className="add-folder-btn">
+            {this.modalHeading() === "Create" ? "Create" : "Update"}
+          </button>
         </form>
       </div>,
       document.getElementById("create-folder-modal")
