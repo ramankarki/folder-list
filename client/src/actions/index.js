@@ -76,3 +76,13 @@ export const folderModalState = (state) => {
     payload: state,
   };
 };
+
+export const deleteFolder = () => async (dispatch, getState) => {
+  const id = getState().folderModalState.split("-")[1];
+
+  await axios.delete(`/api/v1/folder/${id}`);
+
+  let folders = getState().folders;
+  folders = folders.filter((folder) => folder._id !== id);
+  dispatch({ type: FETCH_FOLDERS, payload: folders });
+};
