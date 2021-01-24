@@ -33,6 +33,12 @@ class CreateFolder extends React.Component {
     this.onExitModal();
   };
 
+  modalHeading = () => {
+    let heading = this.props.folderModalStateValue.split(" ")[0];
+    let titleCase = heading[0].toUpperCase();
+    return titleCase + heading.slice(1);
+  };
+
   render() {
     return ReactDOM.createPortal(
       <div className="dim-background">
@@ -41,8 +47,12 @@ class CreateFolder extends React.Component {
           onClick={(event) => event.stopPropagation()}
           className="add-folder-modal"
         >
-          <div className="exit-modal-btn" onClick={this.onExitModal}>
-            <i className="bi bi-x"></i>
+          <div className="modal-heading">
+            <div></div>
+            <h4>{this.modalHeading()} Folder</h4>
+            <div className="exit-modal-btn" onClick={this.onExitModal}>
+              <i className="bi bi-x"></i>
+            </div>
           </div>
           <input
             type="text"

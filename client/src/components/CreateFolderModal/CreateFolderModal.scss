@@ -63,10 +63,15 @@
   }
 }
 
-.exit-modal-btn {
+.modal-heading {
   display: flex;
-  justify-content: flex-end;
-  margin-top: -1rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.exit-modal-btn {
+  margin-top: -1.5rem;
 }
 
 .bi-x {
