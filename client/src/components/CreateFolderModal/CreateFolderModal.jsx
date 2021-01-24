@@ -11,6 +11,13 @@ import {
 import "./CreateFolderModal.scss";
 
 class CreateFolder extends React.Component {
+  onExitModal = () => {
+    this.props.onModalFieldChange("title", "");
+    this.props.onModalFieldChange("desc", "");
+    this.props.activeDropdown("exit-modal-btn");
+    this.props.folderModalState("");
+  };
+
   onSubmit = (event) => {
     event.preventDefault();
 
@@ -23,24 +30,20 @@ class CreateFolder extends React.Component {
         description: this.props.modalDesc,
       });
     }
-
-    this.props.onModalFieldChange("title", "");
-    this.props.onModalFieldChange("desc", "");
-    this.props.activeDropdown("exit-modal-btn");
-    this.props.folderModalState("");
+    this.onExitModal();
   };
 
   render() {
     return ReactDOM.createPortal(
       <div className="dim-background">
-        <div className="exit-modal-btn">
-          <i className="bi bi-x"></i>
-        </div>
         <form
           onSubmit={this.onSubmit}
           onClick={(event) => event.stopPropagation()}
           className="add-folder-modal"
         >
+          <div className="exit-modal-btn" onClick={this.onExitModal}>
+            <i className="bi bi-x"></i>
+          </div>
           <input
             type="text"
             name="title"
