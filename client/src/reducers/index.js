@@ -4,6 +4,7 @@ import activeDropdown from "./activeDropdown";
 import { onModalDescChange, onModalTitleChange } from "./onModalFieldChange";
 import fetchFolders from "./fetchFolders";
 import folderModalState from "./FolderModalState";
+import errorCreator from "./errorCreator";
 
 export default combineReducers({
   user: fetchUser,
@@ -12,4 +13,5 @@ export default combineReducers({
   modalDesc: onModalDescChange,
   folders: fetchFolders,
   folderModalState,
+  unexpectedError: errorCreator,
 });

@@ -6,7 +6,25 @@ import {
   ON_MODAL_DESC_CHANGE,
   FETCH_FOLDERS,
   FOLDER_MODAL_STATE,
+  ERROR,
 } from "./types";
+
+const errorCreator = (heading, text, dispatch) => {
+  dispatch({
+    type: ERROR,
+    payload: {
+      heading,
+      text,
+    },
+  });
+};
+
+export const errorDestroyer = () => {
+  return {
+    type: ERROR,
+    payload: null,
+  };
+};
 
 export const fetchUser = () => async (dispatch) => {
   const user = await axios.get("/auth/google/status");
@@ -40,13 +58,21 @@ export const onModalFieldChange = (type, value) => {
 
 export const createFolder = (title, desc) => async (dispatch, getState) => {
   const description = desc ? desc : undefined;
+  let folder;
 
-  const folder = await axios.post("/api/v1/folder", { title, description });
-
-  dispatch({
-    type: FETCH_FOLDERS,
-    payload: [...getState().folders, folder.data.folder],
-  });
+  try {
+    folder = await axios.post("/api/v1/folder", { title, description });
+    dispatch({
+      type: FETCH_FOLDERS,
+      payload: [...getState().folders, folder.data.folder],
+    });
+  } catch (err) {
+    errorCreator(
+      "Create Folder Failed !",
+      `May be folder with "${title}" already exists or connection lost`,
+      dispatch
+    );
+  }
 };
 
 export const fetchFolders = () => async (dispatch) => {
@@ -56,7 +82,16 @@ export const fetchFolders = () => async (dispatch) => {
 };
 
 export const updateFolder = (id, data) => async (dispatch, getState) => {
-  const updatedFolder = await axios.patch(`/api/v1/folder/${id}`, data);
+  let updatedFolder;
+  try {
+    updatedFolder = await axios.patch(`/api/v1/folder/${id}`, data);
+  } catch (err) {
+    return errorCreator(
+      "Update Folder Failed !",
+      `May folder with "${data.title}" already exists or connection lost`,
+      dispatch
+    );
+  }
 
   const oldFolders = getState().folders;
 
@@ -80,7 +115,15 @@ export const folderModalState = (state) => {
 export const deleteFolder = () => async (dispatch, getState) => {
   const id = getState().folderModalState.split("-")[1];
 
-  await axios.delete(`/api/v1/folder/${id}`);
+  try {
+    await axios.delete(`/api/v1/folder/${id}`);
+  } catch (err) {
+    errorCreator(
+      "Delete Folder Failed !",
+      "Connection lost. try again !",
+      dispatch
+    );
+  }
 
   let folders = getState().folders;
   folders = folders.filter((folder) => folder._id !== id);

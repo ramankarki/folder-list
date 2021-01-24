@@ -5,3 +5,4 @@ export const ON_MODAL_DESC_CHANGE = "ON_MODAL_DESC_CHANGE";
 export const FETCH_FOLDERS = "FETCH_FOLDERS";
 export const UPDATE_FOLDER = "UPDATE_FOLDER";
 export const FOLDER_MODAL_STATE = "FOLDER_MODAL_STATE";
+export const ERROR = "ERROR";
