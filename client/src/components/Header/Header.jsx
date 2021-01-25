@@ -44,6 +44,11 @@ class Header extends React.Component {
     }
   };
 
+  logoNavigate = () => {
+    if (this.props.user.statusCode === 200) return "/dashboard";
+    return "/";
+  };
+
   componentDidMount() {
     this.props.fetchUser();
   }
@@ -52,7 +57,7 @@ class Header extends React.Component {
     return (
       <header className="header">
         <nav className="container d-flex justify-content-between align-items-center pt-2 pb-2">
-          <Link to="/" style={{ textDecoration: "none" }}>
+          <Link to={this.logoNavigate()} style={{ textDecoration: "none" }}>
             <picture className="logo d-flex align-items-center">
               <img
                 className="header-img logo-img"
