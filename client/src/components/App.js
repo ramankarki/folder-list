@@ -7,6 +7,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import Landing from "./Landing/Landing";
 import Header from "./Header/Header";
 import Dashboard from "./Dashboard/Dashboard";
+import UnexpectedError from "./UnexpectedError/UnexpectedError";
 import "./App.scss";
 import {
   activeDropdown,
@@ -35,6 +36,7 @@ class App extends React.Component {
             <a href="https://github.com/ramankarki">Raman Karki</a>
           </p>
         </BrowserRouter>
+        <UnexpectedError />
       </section>
     );
   }
