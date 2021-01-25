@@ -39,13 +39,6 @@ app.use("/api/v1/folder", folder);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(__dirname + "/client/build"));
 
-  app.get("/", (req, res) => {
-    if (req.user) {
-      return res.redirect("/dashboard");
-    }
-    res.sendFile(__dirname + "/client/build/index.html");
-  });
-
   app.get("/dashboard", (req, res) => {
     if (!req.user) {
       return res.redirect("/");
@@ -56,6 +49,13 @@ if (process.env.NODE_ENV === "production") {
   app.get("/dashboard/:id", (req, res) => {
     if (!req.user) {
       return res.redirect("/");
+    }
+    res.sendFile(__dirname + "/client/build/index.html");
+  });
+
+  app.get("/", (req, res) => {
+    if (req.user) {
+      return res.redirect("/dashboard");
     }
     res.sendFile(__dirname + "/client/build/index.html");
   });
