@@ -69,7 +69,7 @@ export const createFolder = (title, desc) => async (dispatch, getState) => {
   } catch (err) {
     errorCreator(
       "Create Folder Failed !",
-      `May be folder with "${title}" already exists or connection lost`,
+      `May be folder with "${title}" name already exists or connection lost`,
       dispatch
     );
   }
@@ -88,7 +88,7 @@ export const updateFolder = (id, data) => async (dispatch, getState) => {
   } catch (err) {
     return errorCreator(
       "Update Folder Failed !",
-      `May folder with "${data.title}" already exists or connection lost`,
+      `May be folder with "${data.title}" name already exists or connection lost`,
       dispatch
     );
   }
