@@ -54,7 +54,7 @@ if (process.env.NODE_ENV === "production") {
   });
 
   app.get("/", (req, res) => {
-    if (req.user) {
+    if (!!req.user) {
       return res.redirect("/dashboard");
     }
     res.sendFile(__dirname + "/client/build/index.html");
