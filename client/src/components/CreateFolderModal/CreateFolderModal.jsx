@@ -69,7 +69,7 @@ class CreateFolder extends React.Component {
             type="text"
             name="desc"
             placeholder="Description"
-            value={this.props.modalDesc}
+            value={this.props.modalDesc || ""}
             onChange={(event) =>
               this.props.onModalFieldChange("desc", event.target.value)
             }
