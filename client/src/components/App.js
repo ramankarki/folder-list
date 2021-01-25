@@ -36,13 +36,17 @@ class App extends React.Component {
             <a href="https://github.com/ramankarki">Raman Karki</a>
           </p>
         </BrowserRouter>
-        <UnexpectedError />
+        {this.props.unexpectedError ? <UnexpectedError /> : null}
       </section>
     );
   }
 }
 
-export default connect(null, {
+const mapStateToProps = (state) => {
+  return { unexpectedError: state.unexpectedError };
+};
+
+export default connect(mapStateToProps, {
   activeDropdown,
   onModalFieldChange,
   folderModalState,
