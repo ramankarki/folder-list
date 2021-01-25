@@ -37,9 +37,13 @@ exports.getFolder = catchAsync(async (req, res, next) => {
 });
 
 exports.updateFolder = catchAsync(async (req, res, next) => {
-  const folder = await Folders.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  });
+  const folder = await Folders.findByIdAndUpdate(
+    req.params.id,
+    { ...req.body, updatedAt: Date.now() },
+    {
+      new: true,
+    }
+  );
   res.status(200).json({
     status: "success",
     folder,

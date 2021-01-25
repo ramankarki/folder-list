@@ -14,10 +14,7 @@ const folderSchema = mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-  updatedAt: {
-    type: Date,
-    default: Date.now(),
-  },
+  updatedAt: Date,
   listData: [Object],
   slug: String,
 });
