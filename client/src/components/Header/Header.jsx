@@ -45,7 +45,8 @@ class Header extends React.Component {
   };
 
   logoNavigate = () => {
-    if (this.props.user.statusCode === 200) return "/dashboard";
+    if (!this.props.user) return "/";
+    else if (this.props.user.statusCode === 200) return "/dashboard";
     return "/";
   };
 
