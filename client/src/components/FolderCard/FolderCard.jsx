@@ -5,6 +5,7 @@ import {
   activeDropdown,
   onModalFieldChange,
   folderModalState,
+  fetchFolder,
 } from "../../actions";
 import "./FolderCard.scss";
 
@@ -22,6 +23,10 @@ class FolderCard extends React.Component {
       `delete-${this.props.folderID}-${this.props.heading}`
     );
     event.stopPropagation();
+  };
+
+  onHeadingClick = () => {
+    this.props.fetchFolder(this.props.doc);
   };
 
   render() {
@@ -55,6 +60,7 @@ class FolderCard extends React.Component {
             marginLeft: "auto",
             marginRight: "auto",
           }}
+          onClick={this.onHeadingClick}
         >
           <h4 className="folderCard-heading">{this.props.heading}</h4>
         </Link>
@@ -84,4 +90,5 @@ export default connect(mapStateToProps, {
   activeDropdown,
   onModalFieldChange,
   folderModalState,
+  fetchFolder,
 })(FolderCard);
