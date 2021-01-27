@@ -40,7 +40,7 @@ class CreateFolder extends React.Component {
   };
 
   isButtonLoading = () => {
-    if (this.props.isFolderCreateLoading) {
+    if (this.props.isFolderCUDLoading) {
       return (
         <span className="loading-spinner">
           <Spinner animation="border" variant="info" />
@@ -102,7 +102,7 @@ const mapStateToProps = (state) => {
     modalTitle: state.modalTitle,
     modalDesc: state.modalDesc,
     folderModalStateValue: state.folderModalState,
-    isFolderCreateLoading: state.isFolderCreateLoading,
+    isFolderCUDLoading: state.isFolderCUDLoading,
   };
 };
 
