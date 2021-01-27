@@ -8,6 +8,7 @@ import Landing from "./Landing/Landing";
 import Header from "./Header/Header";
 import Dashboard from "./Dashboard/Dashboard";
 import UnexpectedError from "./UnexpectedError/UnexpectedError";
+import TodoList from "./TodoList/TodoList";
 import "./App.scss";
 import {
   activeDropdown,
@@ -31,11 +32,12 @@ class App extends React.Component {
           <Header />
           <Route path="/" exact component={Landing} />
           <Route path="/dashboard" exact component={Dashboard} />
-          <p className="footer-text">
-            Full stack app coded by{" "}
-            <a href="https://github.com/ramankarki">Raman Karki</a>
-          </p>
+          <Route path="/dashboard/:id" exact component={TodoList} />
         </BrowserRouter>
+        <p className="footer-text">
+          Full stack app coded by{" "}
+          <a href="https://github.com/ramankarki">Raman Karki</a>
+        </p>
         {this.props.unexpectedError ? <UnexpectedError /> : null}
       </section>
     );
