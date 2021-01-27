@@ -8,16 +8,7 @@ import {
   FOLDER_MODAL_STATE,
   ERROR,
 } from "./types";
-
-const errorCreator = (heading, text, dispatch) => {
-  dispatch({
-    type: ERROR,
-    payload: {
-      heading,
-      text,
-    },
-  });
-};
+import errorCreator from "../reducers/errorCreator";
 
 export const errorDestroyer = () => {
   return {
