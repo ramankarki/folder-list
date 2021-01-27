@@ -7,6 +7,7 @@ import {
   FETCH_FOLDERS,
   FOLDER_MODAL_STATE,
   ERROR,
+  FETCH_FOLDER,
 } from "./types";
 import { errorCreator } from "./helper";
 import { folderRequestLoading, exitFolderModal } from "./helper";
@@ -138,4 +139,15 @@ export const deleteFolder = () => async (dispatch, getState) => {
       dispatch
     );
   }
+};
+
+export const fetchFolder = (id) => async (dispatch) => {
+  folderRequestLoading(true, dispatch);
+
+  const folder = await axios.get(`/api/v1/folder/${id}`);
+  dispatch({
+    type: FETCH_FOLDER,
+    payload: folder.data.folder,
+  });
+  folderRequestLoading(false, dispatch);
 };
