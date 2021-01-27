@@ -10,7 +10,7 @@ import { fetchUser, activeDropdown } from "./../../actions/index";
 class Header extends React.Component {
   loginButtonHandler = () => {
     if (!this.props.user) {
-      return <Spinner animation="border" variant="primary" />;
+      return <Spinner animation="border" variant="info" />;
     } else if (this.props.user.statusCode === 200) {
       return (
         <picture
