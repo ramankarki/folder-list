@@ -18,6 +18,12 @@
     color: #43dbe1;
     font-size: 1.4rem;
     font-weight: 700;
+
+    @media (min-width: 992px) {
+      &:hover {
+        color: #31a9ad;
+      }
+    }
   }
 
   &-desc {

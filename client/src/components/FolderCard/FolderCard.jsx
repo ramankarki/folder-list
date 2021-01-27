@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   activeDropdown,
   onModalFieldChange,
@@ -44,7 +45,19 @@ class FolderCard extends React.Component {
             </div>
           ) : null}
         </div>
-        <h4 className="folderCard-heading">{this.props.heading}</h4>
+        <Link
+          to={"/dashboard/" + this.props.folderID}
+          style={{
+            textDecoration: "none",
+            display: "block",
+            maxWidth: "max-content",
+            margin: "0",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          <h4 className="folderCard-heading">{this.props.heading}</h4>
+        </Link>
         <p className="folderCard-desc">{this.props.desc}</p>
         <div className="folderCard-date d-flex justify-content-between">
           <p>
