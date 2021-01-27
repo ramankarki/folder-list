@@ -24,7 +24,7 @@ export const folderRequestLoading = (isLoading, dispatch) => {
   });
 };
 
-export const exitCreateUpdateFolder = (dispatch) => {
+export const exitFolderModal = (dispatch) => {
   dispatch({
     type: ON_MODAL_TITLE_CHANGE,
     payload: "",
