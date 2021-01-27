@@ -3,18 +3,29 @@ import ReactDOM from "react-dom";
 import { connect } from "react-redux";
 
 import { activeDropdown, folderModalState, deleteFolder } from "../../actions";
+import { Spinner } from "react-bootstrap";
 import "./DeleteModal.scss";
 
 class DeleteModal extends React.Component {
   onCancelClick = (event) => {
-    this.props.activeDropdown("cancel-delete");
+    this.props.activeDropdown("exit-modal-btn");
     this.props.folderModalState("");
     event.stopPropagation();
   };
 
-  onDeleteClick = (event) => {
-    this.props.deleteFolder();
-    this.onCancelClick(event);
+  deleteLoading = () => {
+    if (this.props.isFolderCUDLoading) {
+      return (
+        <span className="delete-loading">
+          <Spinner animation="border" variant="info" />
+        </span>
+      );
+    }
+    return (
+      <button className="delete-btn" onClick={this.props.deleteFolder}>
+        Delete
+      </button>
+    );
   };
 
   render() {
@@ -31,9 +42,7 @@ class DeleteModal extends React.Component {
             {this.props.folderModalStateValue.split("-")[2]}' folder ?
           </p>
           <div className="buttons">
-            <button className="delete-btn" onClick={this.onDeleteClick}>
-              Delete
-            </button>
+            {this.deleteLoading()}
             <button className="cancel-btn" onClick={this.onCancelClick}>
               Cancel
             </button>
@@ -46,7 +55,10 @@ class DeleteModal extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { folderModalStateValue: state.folderModalState };
+  return {
+    folderModalStateValue: state.folderModalState,
+    isFolderCUDLoading: state.isFolderCUDLoading,
+  };
 };
 
 export default connect(mapStateToProps, {
