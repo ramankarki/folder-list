@@ -51,6 +51,7 @@
   padding: 0.5rem 1.3rem;
   border-radius: 1rem;
   margin-top: 1.5rem;
+  font-weight: 700;
 
   @media (min-width: 992px) {
     &:hover {
@@ -69,6 +70,9 @@
   align-items: center;
   margin-bottom: 0.5rem;
 
+  h4 {
+    font-weight: 700;
+  }
   @media (max-width: 575px) {
     h4 {
       font-size: 1.3rem;
