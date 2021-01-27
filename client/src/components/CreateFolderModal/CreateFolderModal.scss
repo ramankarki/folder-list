@@ -86,3 +86,10 @@
   cursor: pointer;
   fill: #323232;
 }
+
+.loading-spinner {
+  display: block;
+  max-width: max-content;
+  margin-left: auto;
+  margin-top: 1rem;
+}

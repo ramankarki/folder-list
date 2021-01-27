@@ -8,6 +8,7 @@ import {
   updateFolder,
   folderModalState,
 } from "./../../actions/index";
+import { Spinner } from "react-bootstrap";
 import "./CreateFolderModal.scss";
 
 class CreateFolder extends React.Component {
@@ -30,13 +31,27 @@ class CreateFolder extends React.Component {
         description: this.props.modalDesc,
       });
     }
-    this.onExitModal();
   };
 
   modalHeading = () => {
     let heading = this.props.folderModalStateValue.split(" ")[0];
     let titleCase = heading[0].toUpperCase();
     return titleCase + heading.slice(1);
+  };
+
+  isButtonLoading = () => {
+    if (this.props.isFolderCreateLoading) {
+      return (
+        <span className="loading-spinner">
+          <Spinner animation="border" variant="info" />
+        </span>
+      );
+    }
+    return (
+      <button className="add-folder-btn">
+        {this.modalHeading() === "Create" ? "Create" : "Update"}
+      </button>
+    );
   };
 
   render() {
@@ -74,9 +89,7 @@ class CreateFolder extends React.Component {
               this.props.onModalFieldChange("desc", event.target.value)
             }
           />
-          <button className="add-folder-btn">
-            {this.modalHeading() === "Create" ? "Create" : "Update"}
-          </button>
+          {this.isButtonLoading()}
         </form>
       </div>,
       document.getElementById("create-folder-modal")
@@ -89,6 +102,7 @@ const mapStateToProps = (state) => {
     modalTitle: state.modalTitle,
     modalDesc: state.modalDesc,
     folderModalStateValue: state.folderModalState,
+    isFolderCreateLoading: state.isFolderCreateLoading,
   };
 };
 
