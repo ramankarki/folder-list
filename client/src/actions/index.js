@@ -141,13 +141,20 @@ export const deleteFolder = () => async (dispatch, getState) => {
   }
 };
 
-export const fetchFolder = (id) => async (dispatch) => {
-  folderRequestLoading(true, dispatch);
+export const fetchFolder = (doc, id) => async (dispatch) => {
+  if (!doc) {
+    folderRequestLoading(true, dispatch);
 
-  const folder = await axios.get(`/api/v1/folder/${id}`);
-  dispatch({
-    type: FETCH_FOLDER,
-    payload: folder.data.folder,
-  });
-  folderRequestLoading(false, dispatch);
+    const folder = await axios.get(`/api/v1/folder/${id}`);
+    dispatch({
+      type: FETCH_FOLDER,
+      payload: folder.data.folder,
+    });
+    folderRequestLoading(false, dispatch);
+  } else {
+    dispatch({
+      type: FETCH_FOLDER,
+      payload: doc,
+    });
+  }
 };
