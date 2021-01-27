@@ -5,7 +5,7 @@ import { onModalDescChange, onModalTitleChange } from "./onModalFieldChange";
 import fetchFolders from "./fetchFolders";
 import folderModalState from "./FolderModalState";
 import errorCreator from "./errorCreator";
-import isFolderCreateLoading from "./folderCreateIsLoading";
+import isFolderCUDLoading from "./isFolderCUDLoading";
 
 export default combineReducers({
   user: fetchUser,
@@ -15,5 +15,5 @@ export default combineReducers({
   folders: fetchFolders,
   folderModalState,
   unexpectedError: errorCreator,
-  isFolderCreateLoading: isFolderCreateLoading,
+  isFolderCUDLoading: isFolderCUDLoading,
 });
