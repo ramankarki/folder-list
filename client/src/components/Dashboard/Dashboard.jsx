@@ -24,6 +24,7 @@ class Dashboard extends React.Component {
   renderFolders = () => {
     return this.props.folders.map((card, index) => (
       <FolderCard
+        doc={card}
         key={index + "-" + uuidv4()}
         folderID={card._id}
         heading={card.title}
