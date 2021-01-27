@@ -6,6 +6,7 @@ import fetchFolders from "./fetchFolders";
 import folderModalState from "./FolderModalState";
 import errorCreator from "./errorCreator";
 import isFolderCUDLoading from "./isFolderCUDLoading";
+import reduceFolder from "./reduceFolder";
 
 export default combineReducers({
   user: fetchUser,
@@ -16,4 +17,5 @@ export default combineReducers({
   folderModalState,
   unexpectedError: errorCreator,
   isFolderCUDLoading: isFolderCUDLoading,
+  activeTodoList: reduceFolder,
 });
