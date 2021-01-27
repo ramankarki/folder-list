@@ -9,7 +9,7 @@ import {
   ERROR,
 } from "./types";
 import { errorCreator } from "./helper";
-import { folderRequestLoading, exitCreateUpdateFolder } from "./helper";
+import { folderRequestLoading, exitFolderModal } from "./helper";
 
 export const errorDestroyer = () => {
   return {
@@ -60,7 +60,7 @@ export const createFolder = (title, desc) => async (dispatch, getState) => {
       payload: [...getState().folders, folder.data.folder],
     });
     folderRequestLoading(false, dispatch);
-    exitCreateUpdateFolder(dispatch);
+    exitFolderModal(dispatch);
   } catch (err) {
     errorCreator(
       "Create Folder Failed !",
@@ -93,7 +93,7 @@ export const updateFolder = (id, data) => async (dispatch, getState) => {
 
     dispatch({ type: FETCH_FOLDERS, payload: newFolder });
     folderRequestLoading(false, dispatch);
-    exitCreateUpdateFolder(dispatch);
+    exitFolderModal(dispatch);
   } catch (err) {
     errorCreator(
       "Update Folder Failed !",
@@ -113,18 +113,29 @@ export const folderModalState = (state) => {
 
 export const deleteFolder = () => async (dispatch, getState) => {
   const id = getState().folderModalState.split("-")[1];
+  folderRequestLoading(true, dispatch);
 
   try {
     await axios.delete(`/api/v1/folder/${id}`);
+
+    // stop loading spinner
+    folderRequestLoading(false, dispatch);
+
+    // remove delete folder
+    let folders = getState().folders;
+    folders = folders.filter((folder) => folder._id !== id);
+
+    // dispatch updated folders
+    dispatch({ type: FETCH_FOLDERS, payload: folders });
+
+    // exit modal
+    exitFolderModal(dispatch);
   } catch (err) {
+    folderRequestLoading(false, dispatch);
     errorCreator(
       "Delete Folder Failed !",
       "Connection lost. try again !",
       dispatch
     );
   }
-
-  let folders = getState().folders;
-  folders = folders.filter((folder) => folder._id !== id);
-  dispatch({ type: FETCH_FOLDERS, payload: folders });
 };
