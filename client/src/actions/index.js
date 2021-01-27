@@ -8,7 +8,8 @@ import {
   FOLDER_MODAL_STATE,
   ERROR,
 } from "./types";
-import errorCreator from "../reducers/errorCreator";
+import { errorCreator } from "./helper";
+import { folderRequestLoading, exitCreateUpdateFolder } from "./helper";
 
 export const errorDestroyer = () => {
   return {
@@ -50,6 +51,7 @@ export const onModalFieldChange = (type, value) => {
 export const createFolder = (title, desc) => async (dispatch, getState) => {
   const description = desc ? desc : undefined;
   let folder;
+  folderRequestLoading(true, dispatch);
 
   try {
     folder = await axios.post("/api/v1/folder", { title, description });
@@ -57,12 +59,15 @@ export const createFolder = (title, desc) => async (dispatch, getState) => {
       type: FETCH_FOLDERS,
       payload: [...getState().folders, folder.data.folder],
     });
+    folderRequestLoading(false, dispatch);
+    exitCreateUpdateFolder(dispatch);
   } catch (err) {
     errorCreator(
       "Create Folder Failed !",
       `May be folder with "${title}" name already exists or connection lost`,
       dispatch
     );
+    folderRequestLoading(false, dispatch);
   }
 };
 
@@ -74,26 +79,29 @@ export const fetchFolders = () => async (dispatch) => {
 
 export const updateFolder = (id, data) => async (dispatch, getState) => {
   let updatedFolder;
+  folderRequestLoading(true, dispatch);
+
   try {
     updatedFolder = await axios.patch(`/api/v1/folder/${id}`, data);
+    const oldFolders = getState().folders;
+    const newFolder = oldFolders.map((folder) => {
+      if (folder._id === id) {
+        return updatedFolder.data.folder;
+      }
+      return folder;
+    });
+
+    dispatch({ type: FETCH_FOLDERS, payload: newFolder });
+    folderRequestLoading(false, dispatch);
+    exitCreateUpdateFolder(dispatch);
   } catch (err) {
-    return errorCreator(
+    errorCreator(
       "Update Folder Failed !",
       `May be folder with "${data.title}" name already exists or connection lost`,
       dispatch
     );
+    return folderRequestLoading(false, dispatch);
   }
-
-  const oldFolders = getState().folders;
-
-  const newFolder = oldFolders.map((folder) => {
-    if (folder._id === id) {
-      return updatedFolder.data.folder;
-    }
-    return folder;
-  });
-
-  dispatch({ type: FETCH_FOLDERS, payload: newFolder });
 };
 
 export const folderModalState = (state) => {
