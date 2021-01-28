@@ -1,9 +1,8 @@
 import React from "react";
-
 import "./TodoItem.scss";
 
 class TodoItem extends React.Component {
-  state = { itemChecked: false };
+  state = { itemChecked: !this.props.pending };
 
   onItemChecked = () => {
     this.setState({ itemChecked: !this.state.itemChecked });
@@ -18,8 +17,7 @@ class TodoItem extends React.Component {
             checked={this.state.itemChecked}
             onChange={this.onItemChecked}
           />
-          item one item item one item item one item item one item item one item
-          item one item
+          {this.props.payload}
         </label>
         <div className="todo-item-settings">
           <i className="bi bi-pencil-square"></i>
