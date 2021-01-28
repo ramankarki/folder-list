@@ -21,6 +21,17 @@ class TodoList extends React.Component {
     event.preventDefault();
   };
 
+  renderTodoItem = () => {
+    return this.props.activeTodoList.listData.map((item) => {
+      return (
+        <TodoItem
+          pending={item.status === "pending" ? true : false}
+          payload={item.payload}
+        />
+      );
+    });
+  };
+
   componentDidMount() {
     this.props.fetchFolder(null, this.props.match.params.id);
   }
@@ -65,9 +76,7 @@ class TodoList extends React.Component {
             <input type="text" placeholder="Add Item" />
             <button>Add</button>
           </form>
-          <section className="todo-items">
-            <TodoItem />
-          </section>
+          <section className="todo-items">{this.renderTodoItem()}</section>
         </section>
       </section>
     );
