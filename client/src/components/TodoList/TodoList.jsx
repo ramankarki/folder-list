@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { fetchFolder } from "../../actions";
 import { Spinner } from "react-bootstrap";
+import { v4 as uuidv4 } from "uuid";
 
 import TodoItem from "../TodoItem/TodoItem";
 import "./TodoList.scss";
@@ -22,9 +23,11 @@ class TodoList extends React.Component {
   };
 
   renderTodoItem = () => {
-    return this.props.activeTodoList.listData.map((item) => {
+    return this.props.activeTodoList.listData.map((item, index) => {
       return (
         <TodoItem
+          key={uuidv4()}
+          index={index}
           pending={item.status === "pending" ? true : false}
           payload={item.payload}
         />
