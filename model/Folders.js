@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const slugify = require("slugify");
 
 const folderSchema = mongoose.Schema({
   userID: String,
@@ -16,12 +15,6 @@ const folderSchema = mongoose.Schema({
   },
   updatedAt: Date,
   listData: [Object],
-  slug: String,
-});
-
-folderSchema.pre("save", function (next) {
-  this.slug = slugify(this.title, { lower: true, remove: /[`*+~.()'"!$:@#]/g });
-  next();
 });
 
 const Folder = mongoose.model("folders", folderSchema);
