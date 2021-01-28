@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchFolder } from "../../actions";
+import { Spinner } from "react-bootstrap";
 
 import TodoItem from "../TodoItem/TodoItem";
 import "./TodoList.scss";
@@ -25,11 +26,19 @@ class TodoList extends React.Component {
   }
 
   render() {
+    if (!this.props.activeTodoList) {
+      return (
+        <div className="loading-screen">
+          <Spinner animation="border" variant="info" />
+        </div>
+      );
+    }
+
     return (
       <section className="todo-list-route container">
         <header>
-          <h1 className="todo-title">Shooping list</h1>
-          <p className="todo-desc">this is desc of this todo list</p>
+          <h1 className="todo-title">{this.props.activeTodoList.title}</h1>
+          <p className="todo-desc">{this.props.activeTodoList.description}</p>
         </header>
         <section className="todo-list">
           <header className="todo-list-tabs">
