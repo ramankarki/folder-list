@@ -1,23 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import { deleteTodoItem } from "../../actions";
+import { deleteTodoItem, editTodoItem } from "../../actions";
 import "./TodoItem.scss";
 
 class TodoItem extends React.Component {
-  state = { itemChecked: !this.props.pending };
-
-  onItemChecked = () => {
-    this.setState({ itemChecked: !this.state.itemChecked });
-  };
-
   checkedItemClass = () => {
-    if (this.state.itemChecked)
+    if (this.props.status === "completed")
       return "todo-item-value todo-item-value-checked";
     return "todo-item-value";
   };
 
   cantEditCompleted = () => {
-    if (this.state.itemChecked) return "invisible";
+    if (this.props.status === "completed") return "invisible";
     return "";
   };
 
@@ -25,14 +19,27 @@ class TodoItem extends React.Component {
     this.props.deleteTodoItem(this.props.activeTodoList._id, this.props.index);
   };
 
+  changeStatus = () => {
+    this.changeStatusLater = setTimeout(() => {
+      this.props.editTodoItem(this.props.activeTodoList._id, this.props.index, {
+        status: this.props.status === "completed" ? "pending" : "completed",
+        payload: this.props.payload,
+      });
+    }, 0);
+  };
+
+  componentWillUnmount() {
+    clearTimeout(this.changeStatusLater);
+  }
+
   render() {
     return (
       <section className="todo-item">
         <label className={this.checkedItemClass()}>
           <input
             type="checkbox"
-            checked={this.state.itemChecked}
-            onChange={this.onItemChecked}
+            checked={this.props.status === "completed" ? true : false}
+            onChange={this.changeStatus}
           />
           {this.props.payload}
         </label>
@@ -46,7 +53,12 @@ class TodoItem extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { activeTodoList: state.activeTodoList };
+  return {
+    activeTodoList: state.activeTodoList,
+    todoListRequestLoading: state.todoListRequestLoading,
+  };
 };
 
-export default connect(mapStateToProps, { deleteTodoItem })(TodoItem);
+export default connect(mapStateToProps, { deleteTodoItem, editTodoItem })(
+  TodoItem
+);
