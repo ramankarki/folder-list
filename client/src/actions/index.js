@@ -200,7 +200,33 @@ export const deleteTodoItem = (id, itemIndex) => async (dispatch, getState) => {
     ...listData.slice(itemIndex + 1),
   ];
   let updatedFolder;
-  todoListRequestLoading("delete", dispatch);
+  todoListRequestLoading(`delete ${itemIndex}`, dispatch);
+
+  updatedFolder = await axios.patch(`/api/v1/folder/${id}`, { listData });
+
+  dispatch({ type: FETCH_FOLDER, payload: updatedFolder.data.folder });
+
+  todoListRequestLoading(false, dispatch);
+};
+
+export const editTodoItem = (id, itemIndex, itemValue) => async (
+  dispatch,
+  getState
+) => {
+  todoListRequestLoading(`edit ${itemIndex}`, dispatch);
+  let { listData } = getState().activeTodoList;
+
+  listData = listData.map((item, index) => {
+    if (index === itemIndex) {
+      return itemValue;
+    }
+    return item;
+  });
+
+  console.log(itemIndex, itemValue);
+  console.log(listData);
+
+  let updatedFolder;
 
   updatedFolder = await axios.patch(`/api/v1/folder/${id}`, { listData });
 
