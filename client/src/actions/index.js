@@ -166,12 +166,16 @@ export const fetchFolder = (doc, id) => async (dispatch) => {
     folderRequestLoading(true, dispatch);
 
     const folder = await axios.get(`/api/v1/folder/${id}`);
+    folder.data.folder.pendingItem = folder.data.folder.listData.filter(
+      (item) => item.status === "pending"
+    );
     dispatch({
       type: FETCH_FOLDER,
       payload: folder.data.folder,
     });
     folderRequestLoading(false, dispatch);
   } else {
+    doc.pendingItem = doc.listData.filter((item) => item.status === "pending");
     dispatch({
       type: FETCH_FOLDER,
       payload: doc,
@@ -187,6 +191,9 @@ export const createTodoItem = (id, todoItem) => async (dispatch, getState) => {
   let updatedFolder;
 
   updatedFolder = await axios.patch(`/api/v1/folder/${id}`, { listData });
+  updatedFolder.data.folder.pendingItem = updatedFolder.data.folder.listData.filter(
+    (item) => item.status === "pending"
+  );
 
   dispatch({ type: FETCH_FOLDER, payload: updatedFolder.data.folder });
 
@@ -203,6 +210,9 @@ export const deleteTodoItem = (id, itemIndex) => async (dispatch, getState) => {
   todoListRequestLoading(`delete ${itemIndex}`, dispatch);
 
   updatedFolder = await axios.patch(`/api/v1/folder/${id}`, { listData });
+  updatedFolder.data.folder.pendingItem = updatedFolder.data.folder.listData.filter(
+    (item) => item.status === "pending"
+  );
 
   dispatch({ type: FETCH_FOLDER, payload: updatedFolder.data.folder });
 
@@ -226,6 +236,9 @@ export const editTodoItem = (id, itemIndex, itemValue) => async (
   let updatedFolder;
 
   updatedFolder = await axios.patch(`/api/v1/folder/${id}`, { listData });
+  updatedFolder.data.folder.pendingItem = updatedFolder.data.folder.listData.filter(
+    (item) => item.status === "pending"
+  );
 
   dispatch({ type: FETCH_FOLDER, payload: updatedFolder.data.folder });
 
