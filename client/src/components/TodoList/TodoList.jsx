@@ -37,7 +37,19 @@ class TodoList extends React.Component {
   };
 
   renderTodoItem = () => {
-    return this.props.activeTodoList.listData.map((item, index) => {
+    let list = this.props.activeTodoList.listData;
+
+    if (this.state.activeTab === "Pending") {
+      list = list.filter(
+        (item) => item.status === "pending"
+      );
+    } else if (this.state.activeTab === "Completed") {
+      list = list.filter(
+        (item) => item.status === "completed"
+      );
+    }
+
+    return list.map((item, index) => {
       return (
         <TodoItem
           key={uuidv4()}
