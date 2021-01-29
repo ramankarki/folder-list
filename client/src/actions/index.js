@@ -223,9 +223,6 @@ export const editTodoItem = (id, itemIndex, itemValue) => async (
     return item;
   });
 
-  console.log(itemIndex, itemValue);
-  console.log(listData);
-
   let updatedFolder;
 
   updatedFolder = await axios.patch(`/api/v1/folder/${id}`, { listData });
