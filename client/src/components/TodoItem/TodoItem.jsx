@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import { deleteTodoItem } from "../../actions";
 import "./TodoItem.scss";
 
 class TodoItem extends React.Component {
@@ -19,6 +21,10 @@ class TodoItem extends React.Component {
     return "";
   };
 
+  onDeleteItem = () => {
+    this.props.deleteTodoItem(this.props.activeTodoList._id, this.props.index);
+  };
+
   render() {
     return (
       <section className="todo-item">
@@ -32,11 +38,15 @@ class TodoItem extends React.Component {
         </label>
         <div className="todo-item-settings">
           <i className={"bi bi-pencil-square" + this.cantEditCompleted()}></i>
-          <i className="bi bi-x exit-icon"></i>
+          <i className="bi bi-x exit-icon" onClick={this.onDeleteItem}></i>
         </div>
       </section>
     );
   }
 }
 
-export default TodoItem;
+const mapStateToProps = (state) => {
+  return { activeTodoList: state.activeTodoList };
+};
+
+export default connect(mapStateToProps, { deleteTodoItem })(TodoItem);
