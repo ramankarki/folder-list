@@ -9,6 +9,7 @@ import "./TodoList.scss";
 
 class TodoList extends React.Component {
   state = { activeTab: "All", newItem: "" };
+  inputField = React.createRef();
 
   activeTab = (tab) => {
     if (tab === this.state.activeTab) return "tabs tabs-active";
@@ -32,6 +33,7 @@ class TodoList extends React.Component {
       });
     }
     this.setState({ newItem: "" });
+    this.inputField.current.focus();
   };
 
   renderTodoItem = () => {
@@ -94,6 +96,7 @@ class TodoList extends React.Component {
                 placeholder="Add Item"
                 value={this.state.newItem}
                 onChange={this.onAddItemChange}
+                ref={this.inputField}
               />
               {this.props.todoListRequestLoading === "create" ? (
                 <Spinner
