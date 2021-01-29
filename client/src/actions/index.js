@@ -180,23 +180,31 @@ export const fetchFolder = (doc, id) => async (dispatch) => {
 };
 
 export const createTodoItem = (id, todoItem) => async (dispatch, getState) => {
-  const { listData } = getState().activeTodoList;
-  listData.push(todoItem);
-  let updatedFolder;
-
   todoListRequestLoading("create", dispatch);
+
+  let { listData } = getState().activeTodoList;
+  listData = [...listData, todoItem];
+  let updatedFolder;
 
   updatedFolder = await axios.patch(`/api/v1/folder/${id}`, { listData });
 
-  const oldFolders = getState().folders;
-  const newFolder = oldFolders.map((folder) => {
-    if (folder._id === id) {
-      return updatedFolder.data.folder;
-    }
-    return folder;
-  });
+  dispatch({ type: FETCH_FOLDER, payload: updatedFolder.data.folder });
 
-  dispatch({ type: FETCH_FOLDERS, payload: newFolder });
+  todoListRequestLoading(false, dispatch);
+};
+
+export const deleteTodoItem = (id, itemIndex) => async (dispatch, getState) => {
+  let { listData } = getState().activeTodoList;
+  listData = [
+    ...listData.slice(0, itemIndex),
+    ...listData.slice(itemIndex + 1),
+  ];
+  let updatedFolder;
+  todoListRequestLoading("delete", dispatch);
+
+  updatedFolder = await axios.patch(`/api/v1/folder/${id}`, { listData });
+
+  dispatch({ type: FETCH_FOLDER, payload: updatedFolder.data.folder });
 
   todoListRequestLoading(false, dispatch);
 };
