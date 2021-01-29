@@ -3,8 +3,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.4rem 1rem 0.4rem 1.6rem;
-  border-radius: 2rem;
   background-color: #2e2e2e;
+  border-bottom: 1px solid #3f3f3f;
+
+  &:last-child {
+    border: none;
+  }
 }
 
 .todo-item-value {
@@ -13,7 +17,7 @@
   margin: 0;
   color: #14ffec;
   line-height: 1.4rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
 
   input {
     margin-right: 0.8rem;
