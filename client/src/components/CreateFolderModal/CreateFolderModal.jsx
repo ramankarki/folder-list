@@ -23,12 +23,19 @@ class CreateFolder extends React.Component {
     event.preventDefault();
 
     if (this.props.folderModalStateValue === "create") {
-      this.props.createFolder(this.props.modalTitle, this.props.modalDesc);
+      this.props.createFolder(
+        this.props.modalTitle.trim(),
+        this.props.modalDesc.trim()
+      );
     } else if (this.props.folderModalStateValue.startsWith("edit")) {
       const folderID = this.props.folderModalStateValue.split(" ")[1];
+      const title = this.props.modalTitle.trim();
+      const description = this.props.modalDesc
+        ? this.props.modalDesc.trim()
+        : undefined;
       this.props.updateFolder(folderID, {
-        title: this.props.modalTitle,
-        description: this.props.modalDesc,
+        title,
+        description,
       });
     }
   };
