@@ -10,7 +10,11 @@ import {
   FETCH_FOLDER,
 } from "./types";
 import { errorCreator } from "./helper";
-import { folderRequestLoading, exitFolderModal } from "./helper";
+import {
+  folderRequestLoading,
+  exitFolderModal,
+  todoListRequestLoading,
+} from "./helper";
 
 export const errorDestroyer = () => {
   return {
@@ -157,4 +161,26 @@ export const fetchFolder = (doc, id) => async (dispatch) => {
       payload: doc,
     });
   }
+};
+
+export const createTodoItem = (id, todoItem) => async (dispatch, getState) => {
+  const { listData } = getState().activeTodoList;
+  listData.push(todoItem);
+  let updatedFolder;
+
+  todoListRequestLoading("create", dispatch);
+
+  updatedFolder = await axios.patch(`/api/v1/folder/${id}`, { listData });
+
+  const oldFolders = getState().folders;
+  const newFolder = oldFolders.map((folder) => {
+    if (folder._id === id) {
+      return updatedFolder.data.folder;
+    }
+    return folder;
+  });
+
+  dispatch({ type: FETCH_FOLDERS, payload: newFolder });
+
+  todoListRequestLoading(false, dispatch);
 };
