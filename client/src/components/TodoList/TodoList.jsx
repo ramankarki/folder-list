@@ -42,7 +42,7 @@ class TodoList extends React.Component {
         <TodoItem
           key={uuidv4()}
           index={index}
-          pending={item.status === "pending" ? true : false}
+          status={item.status}
           payload={item.payload}
         />
       );
