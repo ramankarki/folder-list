@@ -5,6 +5,7 @@ import {
   ON_MODAL_DESC_CHANGE,
   ACTIVE_ACTION_DROPDOWN,
   FOLDER_MODAL_STATE,
+  TODOLIST_REQUEST_LOADING,
 } from "./types";
 
 export const errorCreator = (heading, text, dispatch) => {
@@ -40,5 +41,12 @@ export const exitFolderModal = (dispatch) => {
   dispatch({
     type: FOLDER_MODAL_STATE,
     payload: "",
+  });
+};
+
+export const todoListRequestLoading = (state, dispatch) => {
+  dispatch({
+    type: TODOLIST_REQUEST_LOADING,
+    payload: state,
   });
 };
