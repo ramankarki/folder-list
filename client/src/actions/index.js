@@ -54,6 +54,14 @@ export const onModalFieldChange = (type, value) => {
 };
 
 export const createFolder = (title, desc) => async (dispatch, getState) => {
+  if (!title) {
+    errorCreator(
+      "Create Folder Failed !",
+      `Empty string is not a valid name.`,
+      dispatch
+    );
+    return;
+  }
   const description = desc ? desc : undefined;
   let folder;
   folderRequestLoading(true, dispatch);
@@ -83,6 +91,14 @@ export const fetchFolders = () => async (dispatch) => {
 };
 
 export const updateFolder = (id, data) => async (dispatch, getState) => {
+  if (!data.title) {
+    errorCreator(
+      "Update Folder Failed !",
+      `Empty string is not a valid name.`,
+      dispatch
+    );
+    return;
+  }
   let updatedFolder;
   folderRequestLoading(true, dispatch);
 
