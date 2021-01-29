@@ -5,8 +5,12 @@
 }
 
 .todo-list-route {
-  max-width: 700px;
+  background-color: inherit;
+}
+
+.todo-list-route-container {
   margin: auto;
+  max-width: 700px;
 }
 
 .todo-title {
@@ -101,5 +105,6 @@
 .todo-items {
   margin-top: 1rem;
   display: grid;
-  grid-row-gap: 1rem;
+  border-radius: 2rem;
+  overflow: hidden;
 }
