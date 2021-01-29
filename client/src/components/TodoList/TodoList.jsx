@@ -9,6 +9,7 @@ import "./TodoList.scss";
 
 class TodoList extends React.Component {
   state = { activeTab: "All", newItem: "" };
+
   inputField = React.createRef();
 
   activeTab = (tab) => {
@@ -17,7 +18,7 @@ class TodoList extends React.Component {
   };
 
   setActiveTab = (event) =>
-    this.setState({ activeTab: event.target.textContent });
+    this.setState({ activeTab: event.target.textContent.split(" ")[0] });
 
   onAddItemChange = (event) => {
     this.setState({ newItem: event.target.value });
@@ -40,13 +41,9 @@ class TodoList extends React.Component {
     let list = this.props.activeTodoList.listData;
 
     if (this.state.activeTab === "Pending") {
-      list = list.filter(
-        (item) => item.status === "pending"
-      );
+      list = list.filter((item) => item.status === "pending");
     } else if (this.state.activeTab === "Completed") {
-      list = list.filter(
-        (item) => item.status === "completed"
-      );
+      list = list.filter((item) => item.status === "completed");
     }
 
     return list.map((item, index) => {
@@ -87,19 +84,22 @@ class TodoList extends React.Component {
                 className={this.activeTab("All")}
                 onClick={this.setActiveTab}
               >
-                All
+                All ({this.props.activeTodoList.listData.length})
               </button>
               <button
                 className={this.activeTab("Pending")}
                 onClick={this.setActiveTab}
               >
-                Pending
+                Pending ({this.props.activeTodoList.pendingItem.length})
               </button>
               <button
                 className={this.activeTab("Completed")}
                 onClick={this.setActiveTab}
               >
-                Completed
+                Completed (
+                {this.props.activeTodoList.listData.length -
+                  this.props.activeTodoList.pendingItem.length}
+                )
               </button>
             </header>
             <form onSubmit={this.onTodoItemSubmit} className="todo-form">
