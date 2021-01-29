@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchFolder } from "../../actions";
+import { fetchFolder, createTodoItem } from "../../actions";
 import { Spinner } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
 
@@ -8,7 +8,7 @@ import TodoItem from "../TodoItem/TodoItem";
 import "./TodoList.scss";
 
 class TodoList extends React.Component {
-  state = { activeTab: "All" };
+  state = { activeTab: "All", newItem: "" };
 
   activeTab = (tab) => {
     if (tab === this.state.activeTab) return "tabs tabs-active";
@@ -18,8 +18,20 @@ class TodoList extends React.Component {
   setActiveTab = (event) =>
     this.setState({ activeTab: event.target.textContent });
 
+  onAddItemChange = (event) => {
+    this.setState({ newItem: event.target.value });
+  };
+
   onTodoItemSubmit = (event) => {
     event.preventDefault();
+
+    if (this.state.newItem.trim()) {
+      this.props.createTodoItem(this.props.activeTodoList._id, {
+        status: "pending",
+        payload: this.state.newItem.trim(),
+      });
+    }
+    this.setState({ newItem: "" });
   };
 
   renderTodoItem = () => {
@@ -49,45 +61,65 @@ class TodoList extends React.Component {
     }
 
     return (
-      <section className="todo-list-route container">
-        <header>
-          <h1 className="todo-title">{this.props.activeTodoList.title}</h1>
-          <p className="todo-desc">{this.props.activeTodoList.description}</p>
-        </header>
-        <section className="todo-list">
-          <header className="todo-list-tabs">
-            <button
-              className={this.activeTab("All")}
-              onClick={this.setActiveTab}
-            >
-              All
-            </button>
-            <button
-              className={this.activeTab("Pending")}
-              onClick={this.setActiveTab}
-            >
-              Pending
-            </button>
-            <button
-              className={this.activeTab("Completed")}
-              onClick={this.setActiveTab}
-            >
-              Completed
-            </button>
+      <section className="todo-list-route">
+        <div className="todo-list-route-container container">
+          <header>
+            <h1 className="todo-title">{this.props.activeTodoList.title}</h1>
+            <p className="todo-desc">{this.props.activeTodoList.description}</p>
           </header>
-          <form onSubmit={this.onTodoItemSubmit} className="todo-form">
-            <input type="text" placeholder="Add Item" />
-            <button>Add</button>
-          </form>
-          <section className="todo-items">{this.renderTodoItem()}</section>
-        </section>
+          <section className="todo-list">
+            <header className="todo-list-tabs">
+              <button
+                className={this.activeTab("All")}
+                onClick={this.setActiveTab}
+              >
+                All
+              </button>
+              <button
+                className={this.activeTab("Pending")}
+                onClick={this.setActiveTab}
+              >
+                Pending
+              </button>
+              <button
+                className={this.activeTab("Completed")}
+                onClick={this.setActiveTab}
+              >
+                Completed
+              </button>
+            </header>
+            <form onSubmit={this.onTodoItemSubmit} className="todo-form">
+              <input
+                type="text"
+                placeholder="Add Item"
+                value={this.state.newItem}
+                onChange={this.onAddItemChange}
+              />
+              {this.props.todoListRequestLoading === "create" ? (
+                <Spinner
+                  animation="border"
+                  variant="info"
+                  style={{ marginTop: ".4rem", marginRight: "1.5rem" }}
+                />
+              ) : (
+                <button>Add</button>
+              )}
+            </form>
+            <section className="todo-items">{this.renderTodoItem()}</section>
+          </section>
+        </div>
       </section>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  return { activeTodoList: state.activeTodoList };
+  return {
+    activeTodoList: state.activeTodoList,
+    todoListRequestLoading: state.todoListRequestLoading,
+  };
 };
 
-export default connect(mapStateToProps, { fetchFolder })(TodoList);
+export default connect(mapStateToProps, { fetchFolder, createTodoItem })(
+  TodoList
+);
