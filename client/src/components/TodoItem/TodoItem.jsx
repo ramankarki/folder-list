@@ -50,8 +50,9 @@ class TodoItem extends React.Component {
   }
 
   render() {
+    console.log(this.props.extraClassName);
     return (
-      <section className="todo-item">
+      <section className={`todo-item ${this.props.extraClassName}`}>
         <label className={this.checkedItemClass()}>
           <input
             type="checkbox"

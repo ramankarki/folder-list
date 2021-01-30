@@ -21,6 +21,10 @@
       border: 1px solid #0b7a71;
     }
   }
+
+  &-single:last-child {
+    border-radius: 100rem;
+  }
 }
 
 .todo-item-value {
