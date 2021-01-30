@@ -47,13 +47,14 @@ class TodoList extends React.Component {
       list = list.filter((item) => item.status === "completed");
     }
 
-    return list.map((item, index) => {
+    return list.map((item, index, allList) => {
       return (
         <TodoItem
           key={uuidv4()}
           index={index}
           status={item.status}
           payload={item.payload}
+          extraClassName={allList.length === 1 ? "todo-item-single" : ""}
         />
       );
     });
