@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { deleteTodoItem, editTodoItem } from "../../actions";
+import { Spinner } from "react-bootstrap";
 import "./TodoItem.scss";
 
 class TodoItem extends React.Component {
@@ -28,6 +29,23 @@ class TodoItem extends React.Component {
     }, 0);
   };
 
+  spinnerIfLoadingDelete = () => {
+    const loadingtype = this.props.todoListRequestLoading;
+    let { index } = this.props;
+    if (loadingtype && loadingtype.startsWith("delete")) {
+      let id = +loadingtype.split(" ")[1];
+      console.log(id, index);
+      if (id === index) {
+        return (
+          <span style={{ margin: ".53rem 0" }}>
+            <Spinner animation="border" variant="info" />
+          </span>
+        );
+      }
+    }
+    return <i className="bi bi-x exit-icon" onClick={this.onDeleteItem}></i>;
+  };
+
   componentWillUnmount() {
     clearTimeout(this.changeStatusLater);
   }
@@ -45,7 +63,7 @@ class TodoItem extends React.Component {
         </label>
         <div className="todo-item-settings">
           <i className={"bi bi-pencil-square" + this.cantEditCompleted()}></i>
-          <i className="bi bi-x exit-icon" onClick={this.onDeleteItem}></i>
+          {this.spinnerIfLoadingDelete()}
         </div>
       </section>
     );
