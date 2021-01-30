@@ -130,24 +130,26 @@ class TodoList extends React.Component {
                 )
               </button>
             </header>
-            <form onSubmit={this.onTodoItemSubmit} className="todo-form">
-              <input
-                type="text"
-                placeholder="Add Item"
-                value={this.state.newItem}
-                onChange={this.onAddItemChange}
-                ref={this.inputField}
-              />
-              {this.props.todoListRequestLoading === "create" ? (
-                <Spinner
-                  animation="border"
-                  variant="info"
-                  style={{ marginTop: ".4rem", marginRight: "1.5rem" }}
+            {this.state.activeTab !== "Completed" ? (
+              <form onSubmit={this.onTodoItemSubmit} className="todo-form">
+                <input
+                  type="text"
+                  placeholder="Add Item"
+                  value={this.state.newItem}
+                  onChange={this.onAddItemChange}
+                  ref={this.inputField}
                 />
-              ) : (
-                <button>Add</button>
-              )}
-            </form>
+                {this.props.todoListRequestLoading === "create" ? (
+                  <Spinner
+                    animation="border"
+                    variant="info"
+                    style={{ marginTop: ".4rem", marginRight: "1.5rem" }}
+                  />
+                ) : (
+                  <button>Add</button>
+                )}
+              </form>
+            ) : null}
             <section className="todo-items">{this.renderTodoItem()}</section>
             {this.renderDeleteAllBtn()}
           </section>
