@@ -34,7 +34,6 @@ class TodoItem extends React.Component {
     let { index } = this.props;
     if (loadingtype && loadingtype.startsWith("delete")) {
       let id = +loadingtype.split(" ")[1];
-      console.log(id, index);
       if (id === index) {
         return (
           <span style={{ margin: ".53rem 0" }}>
