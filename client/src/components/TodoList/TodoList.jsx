@@ -63,6 +63,29 @@ class TodoList extends React.Component {
     this.props.deleteAllTodoItem(this.props.activeTodoList._id);
   };
 
+  renderDeleteAllBtn = () => {
+    const completed =
+      this.props.activeTodoList.listData.length -
+      this.props.activeTodoList.pendingItem.length;
+    if (this.state.activeTab === "Completed" && completed !== 0) {
+      if (this.props.todoListRequestLoading === "delete all") {
+        return (
+          <div className="delete-all-spinner">
+            <Spinner animation="border" variant="info" />
+          </div>
+        );
+      }
+      return (
+        <button
+          className="delete-all-completed"
+          onClick={this.deleteAllCompleted}
+        >
+          Delete all <img src={deleteIcon} alt="delete all icon" />
+        </button>
+      );
+    }
+  };
+
   componentDidMount() {
     this.props.fetchFolder(null, this.props.match.params.id);
   }
@@ -126,17 +149,7 @@ class TodoList extends React.Component {
               )}
             </form>
             <section className="todo-items">{this.renderTodoItem()}</section>
-            {this.state.activeTab === "Completed" &&
-            this.props.activeTodoList.listData.length -
-              this.props.activeTodoList.pendingItem.length !==
-              0 ? (
-              <button
-                className="delete-all-completed"
-                onClick={this.deleteAllCompleted}
-              >
-                Delete all <img src={deleteIcon} alt="delete all icon" />
-              </button>
-            ) : null}
+            {this.renderDeleteAllBtn()}
           </section>
         </div>
       </section>
