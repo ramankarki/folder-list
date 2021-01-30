@@ -56,6 +56,10 @@
   font-size: 1.1rem;
   color: #4d4d4d;
   cursor: pointer;
+
+  &-active {
+    color: #dedede;
+  }
 }
 
 .folder-settings {

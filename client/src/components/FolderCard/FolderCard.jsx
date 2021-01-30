@@ -29,6 +29,13 @@ class FolderCard extends React.Component {
     this.props.fetchFolder(this.props.doc);
   };
 
+  activeSettingsClassName = () => {
+    if (this.props.activeDropdownState === this.props.folderID) {
+      return "bi-gear-fill bi-gear-fill-active";
+    }
+    return "bi-gear-fill";
+  };
+
   render() {
     return (
       <section className="folderCard">
@@ -40,7 +47,7 @@ class FolderCard extends React.Component {
             event.stopPropagation();
           }}
         >
-          <i className="bi bi-gear-fill"></i>
+          <i className={`bi ${this.activeSettingsClassName()}`}></i>
           {this.props.activeDropdownState === this.props.folderID ? (
             <div className="folder-settings">
               <p onClick={this.onEditClick}>Edit</p>
