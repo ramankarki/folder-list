@@ -106,3 +106,33 @@
   margin-top: 1rem;
   display: grid;
 }
+
+.delete-all-completed {
+  background-color: #db4d4d;
+  color: white;
+  padding: 0.4rem 1.3rem;
+  border: none;
+  border-radius: 100rem;
+  display: block;
+  margin-left: auto;
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 21px;
+    height: auto;
+    margin-left: 0.5rem;
+    filter: invert(90%);
+  }
+
+  @media (min-width: 950px) {
+    &:hover {
+      background-color: #c04141;
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}

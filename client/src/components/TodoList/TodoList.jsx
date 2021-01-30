@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchFolder, createTodoItem } from "../../actions";
+import { fetchFolder, createTodoItem, deleteAllTodoItem } from "../../actions";
 import { Spinner } from "react-bootstrap";
 import { v4 as uuidv4 } from "uuid";
 
 import TodoItem from "../TodoItem/TodoItem";
+import deleteIcon from "./delete-icon.svg";
 import "./TodoList.scss";
 
 class TodoList extends React.Component {
@@ -56,6 +57,10 @@ class TodoList extends React.Component {
         />
       );
     });
+  };
+
+  deleteAllCompleted = () => {
+    this.props.deleteAllTodoItem(this.props.activeTodoList._id);
   };
 
   componentDidMount() {
@@ -121,6 +126,17 @@ class TodoList extends React.Component {
               )}
             </form>
             <section className="todo-items">{this.renderTodoItem()}</section>
+            {this.state.activeTab === "Completed" &&
+            this.props.activeTodoList.listData.length -
+              this.props.activeTodoList.pendingItem.length !==
+              0 ? (
+              <button
+                className="delete-all-completed"
+                onClick={this.deleteAllCompleted}
+              >
+                Delete all <img src={deleteIcon} alt="delete all icon" />
+              </button>
+            ) : null}
           </section>
         </div>
       </section>
@@ -135,6 +151,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchFolder, createTodoItem })(
-  TodoList
-);
+export default connect(mapStateToProps, {
+  fetchFolder,
+  createTodoItem,
+  deleteAllTodoItem,
+})(TodoList);
