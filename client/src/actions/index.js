@@ -244,3 +244,21 @@ export const editTodoItem = (id, itemIndex, itemValue) => async (
 
   todoListRequestLoading(false, dispatch);
 };
+
+export const deleteAllTodoItem = (id) => async (dispatch, getState) => {
+  todoListRequestLoading("delete all", dispatch);
+  let { listData } = getState().activeTodoList;
+
+  listData = listData.filter((item) => item.status !== "completed");
+
+  let updatedFolder;
+
+  updatedFolder = await axios.patch(`/api/v1/folder/${id}`, { listData });
+  updatedFolder.data.folder.pendingItem = updatedFolder.data.folder.listData.filter(
+    (item) => item.status === "pending"
+  );
+
+  dispatch({ type: FETCH_FOLDER, payload: updatedFolder.data.folder });
+
+  todoListRequestLoading(false, dispatch);
+};
