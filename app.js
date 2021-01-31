@@ -40,7 +40,7 @@ if (process.env.NODE_ENV === "production") {
   app.get("/", (req, res) => {
     app.use(express.static(__dirname + "/client/build"));
     if (!!req.user) {
-      res.redirect("/dashboard");
+      return res.redirect("/dashboard");
     }
     res.sendFile(__dirname + "/client/build/index.html");
   });
