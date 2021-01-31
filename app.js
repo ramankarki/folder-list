@@ -46,6 +46,7 @@ if (process.env.NODE_ENV === "production") {
   });
 
   app.get("/dashboard", (req, res) => {
+    app.use(express.static(__dirname + "/client/build"));
     if (!req.user) {
       return res.redirect("/");
     }
@@ -53,6 +54,7 @@ if (process.env.NODE_ENV === "production") {
   });
 
   app.get("/dashboard/:id", (req, res) => {
+    app.use(express.static(__dirname + "/client/build"));
     if (!req.user) {
       return res.redirect("/");
     }
@@ -60,6 +62,7 @@ if (process.env.NODE_ENV === "production") {
   });
 
   app.all("*", (req, res) => {
+    app.use(express.static(__dirname + "/client/build"));
     if (!req.user) {
       return res.redirect("/");
     }
