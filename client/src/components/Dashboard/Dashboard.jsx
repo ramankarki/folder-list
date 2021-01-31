@@ -10,10 +10,11 @@ import {
   folderModalState,
 } from "./../../actions/index";
 import illustration from "./dashboard-illustration.svg";
-import "./Dashboard.scss";
 import FolderCard from "./../FolderCard/FolderCard";
 import Modal from "./../CreateFolderModal/CreateFolderModal";
 import DeleteModal from "./../DeleteModal/DeleteModal";
+import { Spinner } from "react-bootstrap";
+import "./Dashboard.scss";
 
 class Dashboard extends React.Component {
   componentDidMount() {
@@ -22,17 +23,18 @@ class Dashboard extends React.Component {
   }
 
   renderFolders = () => {
-    return this.props.folders.map((card, index) => (
-      <FolderCard
-        doc={card}
-        key={index + "-" + uuidv4()}
-        folderID={card._id}
-        heading={card.title}
-        desc={card.description ? card.description : null}
-        createdAt={new Date(card.createdAt).toDateString()}
-        updatedAt={new Date(card.updatedAt).toDateString()}
-      />
-    ));
+    if (this.props.folders)
+      return this.props.folders.map((card, index) => (
+        <FolderCard
+          doc={card}
+          key={index + "-" + uuidv4()}
+          folderID={card._id}
+          heading={card.title}
+          desc={card.description ? card.description : null}
+          createdAt={new Date(card.createdAt).toDateString()}
+          updatedAt={new Date(card.updatedAt).toDateString()}
+        />
+      ));
   };
 
   render() {
@@ -59,9 +61,16 @@ class Dashboard extends React.Component {
         <section className="folders">
           <h3 className="folders-heading">{this.props.user.name}'s Folder</h3>
           <p className="folders-desc">
-            Total folders: {this.props.folders.length}
+            Total folders:{" "}
+            {this.props.folders ? this.props.folders.length : null}
           </p>
-          <div className="folders-grid">{this.renderFolders()}</div>
+          {this.props.folders ? (
+            <div className="folders-grid">{this.renderFolders()}</div>
+          ) : (
+            <span className="folders-loading">
+              <Spinner animation="border" variant="info" />
+            </span>
+          )}
         </section>
         <button className="add-folder">
           <i
