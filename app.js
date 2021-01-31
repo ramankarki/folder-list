@@ -37,12 +37,10 @@ app.use("/api/v1/folder", folder);
 
 // serve static build files in production
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(__dirname + "/client/build"));
-
   app.get("/", (req, res) => {
-    console.log(typeof req.user, req.user);
-    if (typeof req.user === "object") {
-      return res.redirect("/dashboard");
+    app.use(express.static(__dirname + "/client/build"));
+    if (!!req.user) {
+      res.redirect("/dashboard");
     }
     res.sendFile(__dirname + "/client/build/index.html");
   });
