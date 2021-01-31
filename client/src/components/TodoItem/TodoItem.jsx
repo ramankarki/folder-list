@@ -1,10 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import { deleteTodoItem, editTodoItem } from "../../actions";
+import { deleteTodoItem, editTodoItem, activeDropdown } from "../../actions";
 import { Spinner } from "react-bootstrap";
 import "./TodoItem.scss";
 
 class TodoItem extends React.Component {
+  state = {
+    editedValue:
+      this.props.todoListRequestLoading === `edit ${this.props.index}`
+        ? ""
+        : this.props.payload,
+  };
+
   checkedItemClass = () => {
     if (this.props.status === "completed")
       return "todo-item-value todo-item-value-checked";
@@ -45,6 +52,39 @@ class TodoItem extends React.Component {
     return <i className="bi bi-x exit-icon" onClick={this.onDeleteItem}></i>;
   };
 
+  activateEditMode = (event) => {
+    event.stopPropagation();
+    this.props.activeDropdown(
+      `todo-item-edit ${this.props.activeTodoList._id} ${this.props.index}`
+    );
+  };
+
+  freezeEditMode = (event) => {
+    this.activateEditMode(event);
+    this.activateEditMode(event);
+  };
+
+  onTodoItemEdit = (event) => {
+    event.preventDefault();
+
+    if (this.state.editedValue.trim()) {
+      this.props.editTodoItem(this.props.activeTodoList._id, this.props.index, {
+        status: "pending",
+        payload: this.state.editedValue,
+      });
+    } else {
+      this.props.editTodoItem(this.props.activeTodoList._id, this.props.index, {
+        status: "pending",
+        payload: "Empty String",
+      });
+    }
+  };
+
+  onEditItemChange = (event) => {
+    this.setState({ editedValue: event.target.value });
+    console.log(this.state.editedValue);
+  };
+
   componentWillUnmount() {
     clearTimeout(this.changeStatusLater);
   }
@@ -52,18 +92,58 @@ class TodoItem extends React.Component {
   render() {
     return (
       <section className={`todo-item ${this.props.extraClassName}`}>
-        <label className={this.checkedItemClass()}>
-          <input
-            type="checkbox"
-            checked={this.props.status === "completed" ? true : false}
-            onChange={this.changeStatus}
-          />
-          {this.props.payload}
-        </label>
-        <div className="todo-item-settings">
-          <i className={"bi bi-pencil-square" + this.cantEditCompleted()}></i>
-          {this.spinnerIfLoadingDelete()}
-        </div>
+        {this.props.activeDropdownState ===
+        `todo-item-edit ${this.props.activeTodoList._id} ${this.props.index}` ? (
+          <form
+            onSubmit={this.onTodoItemEdit}
+            onClick={this.freezeEditMode}
+            className="todo-edit-form"
+          >
+            <input
+              type="text"
+              placeholder={
+                this.props.todoListRequestLoading === `edit ${this.props.index}`
+                  ? "Loading..."
+                  : "Edit item"
+              }
+              value={this.state.editedValue}
+              onChange={this.onEditItemChange}
+              required
+              autoFocus
+            />
+            {this.props.todoListRequestLoading ===
+            `edit ${this.props.index}` ? (
+              <Spinner
+                animation="border"
+                variant="info"
+                style={{ marginTop: ".22rem", marginRight: "1.5rem" }}
+              />
+            ) : (
+              <button>Edit</button>
+            )}
+          </form>
+        ) : (
+          <React.Fragment>
+            <label className={this.checkedItemClass()}>
+              <input
+                type="checkbox"
+                checked={this.props.status === "completed" ? true : false}
+                onChange={this.changeStatus}
+              />
+              {this.props.payload}
+            </label>
+            <div className="todo-item-settings">
+              <i
+                onClick={(event) => {
+                  this.activateEditMode(event);
+                  this.setState({ editedValue: this.props.payload });
+                }}
+                className={"bi bi-pencil-square" + this.cantEditCompleted()}
+              ></i>
+              {this.spinnerIfLoadingDelete()}
+            </div>
+          </React.Fragment>
+        )}
       </section>
     );
   }
@@ -73,9 +153,12 @@ const mapStateToProps = (state) => {
   return {
     activeTodoList: state.activeTodoList,
     todoListRequestLoading: state.todoListRequestLoading,
+    activeDropdownState: state.activeDropdown,
   };
 };
 
-export default connect(mapStateToProps, { deleteTodoItem, editTodoItem })(
-  TodoItem
-);
+export default connect(mapStateToProps, {
+  deleteTodoItem,
+  editTodoItem,
+  activeDropdown,
+})(TodoItem);

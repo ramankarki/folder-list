@@ -84,3 +84,39 @@
     color: #d35757;
   }
 }
+
+.todo-edit-form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 0.511rem 0;
+
+  input {
+    width: 100%;
+    border: none;
+    color: #14ffec;
+    background-color: inherit;
+  }
+
+  button {
+    display: block;
+    height: 100%;
+    border: none;
+    background-color: #14ffec;
+    font-size: 1.1rem;
+    border-radius: 10rem;
+    padding: 0.3rem 1.5rem;
+    font-weight: 700;
+    color: rgb(58, 58, 58);
+
+    @media (min-width: 992px) {
+      &:hover {
+        background-color: #14ada1;
+      }
+    }
+
+    &:active {
+      transform: scale(0.96);
+    }
+  }
+}

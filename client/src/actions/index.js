@@ -243,6 +243,7 @@ export const editTodoItem = (id, itemIndex, itemValue) => async (
   dispatch({ type: FETCH_FOLDER, payload: updatedFolder.data.folder });
 
   todoListRequestLoading(false, dispatch);
+  dispatch({ type: ACTIVE_ACTION_DROPDOWN, payload: null });
 };
 
 export const deleteAllTodoItem = (id) => async (dispatch, getState) => {
