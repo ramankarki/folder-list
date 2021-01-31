@@ -8,6 +8,7 @@ import {
   fetchFolder,
 } from "../../actions";
 import "./FolderCard.scss";
+import generateTemplate from "./generateTemplate";
 
 class FolderCard extends React.Component {
   onEditClick = (event) => {
@@ -27,6 +28,25 @@ class FolderCard extends React.Component {
 
   onHeadingClick = () => {
     this.props.fetchFolder(this.props.doc);
+  };
+
+  onDownloadClick = () => {
+    const folder = this.props.folders.filter(
+      (item) => item._id === this.props.folderID
+    )[0];
+
+    const template = generateTemplate(
+      folder.title,
+      new Date(folder.createdAt).toDateString(),
+      new Date(folder.updatedAt).toDateString(),
+      folder.listData
+    );
+
+    const a = document.createElement("a");
+    const newFile = new Blob(template, { type: "text/html" });
+    a.download = `${folder.title}`;
+    a.href = URL.createObjectURL(newFile);
+    a.click();
   };
 
   activeSettingsClassName = () => {
@@ -50,6 +70,7 @@ class FolderCard extends React.Component {
           <i className={`bi ${this.activeSettingsClassName()}`}></i>
           {this.props.activeDropdownState === this.props.folderID ? (
             <div className="folder-settings">
+              <p onClick={this.onDownloadClick}>Download</p>
               <p onClick={this.onEditClick}>Edit</p>
               <p className="folder-delete" onClick={this.onDeleteClick}>
                 Delete
@@ -90,7 +111,7 @@ class FolderCard extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { activeDropdownState: state.activeDropdown };
+  return { activeDropdownState: state.activeDropdown, folders: state.folders };
 };
 
 export default connect(mapStateToProps, {
