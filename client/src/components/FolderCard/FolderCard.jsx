@@ -37,6 +37,7 @@ class FolderCard extends React.Component {
 
     const template = generateTemplate(
       folder.title,
+      folder.description,
       new Date(folder.createdAt).toDateString(),
       new Date(folder.updatedAt).toDateString(),
       folder.listData

@@ -1,4 +1,4 @@
-const generateTemplate = (title, createdAt, updatedAt, listData) => {
+const generateTemplate = (title, desc, createdAt, updatedAt, listData) => {
   const list = listData.map((item) => {
     if (item.status === "pending") {
       return `<li class="pending">${item.payload}</li>`;
@@ -35,6 +35,14 @@ const generateTemplate = (title, createdAt, updatedAt, listData) => {
         text-align: center;
         font-size: 1.8rem;
         color: #0b2a80;
+        margin: auto;
+        width: 90%;
+      }
+      .desc {
+        width: 90%;
+        margin: 1.5rem auto 2rem;
+        text-align: center;
+        color: #6e6e6e;
       }
       .todo-item {
         margin: auto;
@@ -68,6 +76,7 @@ const generateTemplate = (title, createdAt, updatedAt, listData) => {
           <p>Updated at <br />${updatedAt}</p>
         </div>
         <h1 class="heading">${title}</h1>
+        <p class="desc">${desc ? desc : ""}</p>
         <ul class="todo-item">
   `;
   const end = `</ul>
