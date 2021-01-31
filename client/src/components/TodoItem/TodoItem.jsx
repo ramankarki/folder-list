@@ -82,7 +82,6 @@ class TodoItem extends React.Component {
 
   onEditItemChange = (event) => {
     this.setState({ editedValue: event.target.value });
-    console.log(this.state.editedValue);
   };
 
   componentWillUnmount() {
