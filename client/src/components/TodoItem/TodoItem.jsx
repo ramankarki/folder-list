@@ -28,12 +28,10 @@ class TodoItem extends React.Component {
   };
 
   changeStatus = () => {
-    this.changeStatusLater = setTimeout(() => {
-      this.props.editTodoItem(this.props.activeTodoList._id, this.props.index, {
-        status: this.props.status === "completed" ? "pending" : "completed",
-        payload: this.props.payload,
-      });
-    }, 0);
+    this.props.editTodoItem(this.props.activeTodoList._id, this.props.index, {
+      status: this.props.status === "completed" ? "pending" : "completed",
+      payload: this.props.payload,
+    });
   };
 
   spinnerIfLoadingDelete = () => {
@@ -83,10 +81,6 @@ class TodoItem extends React.Component {
   onEditItemChange = (event) => {
     this.setState({ editedValue: event.target.value });
   };
-
-  componentWillUnmount() {
-    clearTimeout(this.changeStatusLater);
-  }
 
   render() {
     return (
