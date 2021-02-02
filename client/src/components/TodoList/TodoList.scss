@@ -50,7 +50,7 @@
     padding: 0.5rem 0;
     flex: 1;
     color: #139288;
-    border-bottom: 2px solid #2e2c2c;
+    border-bottom: 2px solid #0c5466;
     font-size: 0.9rem;
 
     @media (min-width: 576px) {
@@ -70,10 +70,13 @@
 
 .todo-form {
   display: flex;
-  border: 2px solid #272525;
+  border: 2px solid #0509e6;
   border-radius: 100rem;
-  background-color: #2e2e2e;
+  background-color: #020458;
   margin-top: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  padding: 0.5rem;
 
   input {
     width: 100%;
@@ -81,13 +84,16 @@
     border: none;
     padding: 0.6rem 1.1rem;
     color: #14ffec;
+    &::placeholder {
+      color: rgb(177, 174, 174);
+    }
   }
 
   button {
     display: block;
     height: 100%;
     border: none;
-    background-color: #14ffec;
+    background-color: #15cebe;
     font-size: 1.3rem;
     border-radius: 10rem;
     padding: 0.4rem 1.5rem;
@@ -107,7 +113,7 @@
 }
 
 .todo-items {
-  margin-top: 1rem;
+  margin-top: 2rem;
   display: grid;
 }
 

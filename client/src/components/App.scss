@@ -30,17 +30,17 @@ body {
 }
 
 .app {
-  background-color: #323232;
+  background: #000272;
   height: 100vh;
 }
 
 .footer-text {
-  background-color: #323232;
   margin: 0;
-  padding: 3rem 0;
   text-align: center;
   color: #1d9fa3;
   font-size: 0.9rem;
+  padding: 3rem 0;
+  background-color: #000272;
 
   a {
     color: #43dbe1;

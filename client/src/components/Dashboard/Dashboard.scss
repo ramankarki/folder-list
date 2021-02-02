@@ -1,14 +1,16 @@
 .dashboard {
-  background-color: #323232;
+  min-height: 100%;
+  background: inherit;
 
   &-guideContainer {
     padding: 5rem 0 2rem;
     width: 80%;
     margin: auto;
+    background: transparent;
   }
 
   &-heading {
-    color: #43dbe1;
+    color: #85cfcb;
     font-weight: 700;
     font-size: 1.9rem;
     margin-bottom: 1rem;
@@ -23,8 +25,10 @@
   }
 
   &-guideline {
-    color: #15b2b8;
+    color: #1ac2b7;
     line-height: 2rem;
+    font-weight: 400;
+    font-size: 1.05rem;
 
     li {
       margin-top: 0.2rem;
@@ -49,10 +53,11 @@
 
 .folders {
   padding: 5rem 0 3rem;
+  background: transparent;
 
   &-heading {
     text-align: center;
-    color: #43dbe1;
+    color: #36c2c7;
     font-weight: 700;
     font-size: 1.7rem;
   }

@@ -9,7 +9,7 @@ import deleteIcon from "./delete-icon.svg";
 import "./TodoList.scss";
 
 class TodoList extends React.Component {
-  state = { activeTab: "All", newItem: "" };
+  state = { activeTab: "All", newItem: "", borderColor: "#020458" };
 
   inputField = React.createRef();
 
@@ -132,7 +132,13 @@ class TodoList extends React.Component {
               </button>
             </header>
             {this.state.activeTab !== "Completed" ? (
-              <form onSubmit={this.onTodoItemSubmit} className="todo-form">
+              <form
+                onFocus={() => this.setState({ borderColor: "#0509e6" })}
+                onBlur={() => this.setState({ borderColor: "#020458" })}
+                style={{ borderColor: this.state.borderColor }}
+                onSubmit={this.onTodoItemSubmit}
+                className="todo-form"
+              >
                 <input
                   type="text"
                   placeholder="Add Item"
