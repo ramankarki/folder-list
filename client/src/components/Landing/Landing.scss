@@ -2,7 +2,8 @@
   background: inherit;
 }
 
-.hero1 {
+.hero1,
+.hero2 {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -47,6 +48,7 @@
     width: 90%;
     margin: auto;
     margin-top: 1rem;
+    line-height: 1.8rem;
 
     @media (min-width: 950px) {
       text-align: left;
@@ -73,7 +75,7 @@
 
     @media (min-width: 950px) {
       margin: 0;
-      margin-top: 1.5rem;
+      margin-top: 2rem;
 
       &:hover {
         background-color: #9cd8d4;
@@ -92,5 +94,38 @@
     margin-left: auto;
     margin-right: auto;
     align-items: center;
+  }
+}
+
+.hero2 {
+  margin-top: 7rem;
+  @media (min-width: 950px) {
+    flex-direction: row;
+    margin-top: 10rem;
+  }
+
+  picture {
+    @media (min-width: 950px) {
+      width: initial;
+      max-width: initial;
+    }
+  }
+
+  &-readings {
+    @media (min-width: 950px) {
+      margin-left: 4rem;
+    }
+  }
+
+  &-heading {
+    @media (min-width: 950px) {
+      margin: 0;
+    }
+  }
+
+  &-desc {
+    @media (min-width: 950px) {
+      margin-top: 1.5rem;
+    }
   }
 }
