@@ -164,15 +164,20 @@ export const deleteFolder = () => async (dispatch, getState) => {
 export const fetchFolder = (doc, id) => async (dispatch) => {
   if (!doc) {
     folderRequestLoading(true, dispatch);
-
-    const folder = await axios.get(`/api/v1/folder/${id}`);
-    folder.data.folder.pendingItem = folder.data.folder.listData.filter(
-      (item) => item.status === "pending"
-    );
-    dispatch({
-      type: FETCH_FOLDER,
-      payload: folder.data.folder,
-    });
+    try {
+      const folder = await axios.get(`/api/v1/folder/${id}`);
+      folder.data.folder.pendingItem = folder.data.folder.listData.filter(
+        (item) => item.status === "pending"
+      );
+      dispatch({
+        type: FETCH_FOLDER,
+        payload: folder.data.folder,
+      });
+      folderRequestLoading(false, dispatch);
+    } catch (err) {
+      folderRequestLoading(false, dispatch);
+      dispatch({ type: "NOT_FOUND_404", payload: true });
+    }
     folderRequestLoading(false, dispatch);
   } else {
     doc.pendingItem = doc.listData.filter((item) => item.status === "pending");
