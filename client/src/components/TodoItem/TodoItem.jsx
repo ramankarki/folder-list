@@ -29,11 +29,15 @@ class TodoItem extends React.Component {
   };
 
   changeStatus = () => {
-    this.props.editTodoItem(this.props.activeTodoList._id, this.props.index, {
-      status: this.props.status === "completed" ? "pending" : "completed",
-      payload: this.props.payload,
-    });
-    this.setState({ checked: !this.state.checked });
+    this.props.editTodoItem(
+      this.props.activeTodoList._id,
+      this.props.index,
+      {
+        status: this.props.status === "completed" ? "pending" : "completed",
+        payload: this.props.payload,
+      },
+      true
+    );
   };
 
   spinnerIfLoadingDelete = () => {

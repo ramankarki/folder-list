@@ -224,31 +224,60 @@ export const deleteTodoItem = (id, itemIndex) => async (dispatch, getState) => {
   todoListRequestLoading(false, dispatch);
 };
 
-export const editTodoItem = (id, itemIndex, itemValue) => async (
-  dispatch,
-  getState
-) => {
-  todoListRequestLoading(`edit ${itemIndex}`, dispatch);
-  let { listData } = getState().activeTodoList;
+export const editTodoItem = (
+  id,
+  itemIndex,
+  itemValue,
+  checkbox = false
+) => async (dispatch, getState) => {
+  console.log(checkbox);
+  if (checkbox) {
+    let { listData } = getState().activeTodoList;
 
-  listData = listData.map((item, index) => {
-    if (index === itemIndex) {
-      return itemValue;
-    }
-    return item;
-  });
+    listData = listData.map((item, index) => {
+      if (index === itemIndex) {
+        return itemValue;
+      }
+      return item;
+    });
 
-  let updatedFolder;
+    const { activeTodoList } = getState();
 
-  updatedFolder = await axios.patch(`/api/v1/folder/${id}`, { listData });
-  updatedFolder.data.folder.pendingItem = updatedFolder.data.folder.listData.filter(
-    (item) => item.status === "pending"
-  );
+    activeTodoList.listData = listData;
+    activeTodoList.pendingItem = listData.filter(
+      (item) => item.status === "pending"
+    );
 
-  dispatch({ type: FETCH_FOLDER, payload: updatedFolder.data.folder });
+    console.log(activeTodoList);
 
-  todoListRequestLoading(false, dispatch);
-  dispatch({ type: ACTIVE_ACTION_DROPDOWN, payload: null });
+    dispatch({ type: FETCH_FOLDER, payload: { ...activeTodoList } });
+
+    dispatch({ type: ACTIVE_ACTION_DROPDOWN, payload: null });
+
+    await axios.patch(`/api/v1/folder/${id}`, { listData });
+  } else {
+    todoListRequestLoading(`edit ${itemIndex}`, dispatch);
+    let { listData } = getState().activeTodoList;
+
+    listData = listData.map((item, index) => {
+      if (index === itemIndex) {
+        return itemValue;
+      }
+      return item;
+    });
+
+    let updatedFolder;
+
+    updatedFolder = await axios.patch(`/api/v1/folder/${id}`, { listData });
+    updatedFolder.data.folder.pendingItem = updatedFolder.data.folder.listData.filter(
+      (item) => item.status === "pending"
+    );
+
+    dispatch({ type: FETCH_FOLDER, payload: updatedFolder.data.folder });
+
+    todoListRequestLoading(false, dispatch);
+    dispatch({ type: ACTIVE_ACTION_DROPDOWN, payload: null });
+  }
 };
 
 export const deleteAllTodoItem = (id) => async (dispatch, getState) => {
