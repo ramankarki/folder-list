@@ -35,6 +35,12 @@ const Landing = () => {
             </p>
           </div>
         </article>
+        <section className="call-to-action">
+          <h4>Check list your progress and increase your productivity</h4>
+          <a href="/auth/google" className="cta-btn">
+            Get Started Now <i className="bi bi-arrow-right"></i>
+          </a>
+        </section>
       </div>
     </section>
   );
