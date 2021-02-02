@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import TodoItem from "../TodoItem/TodoItem";
 import deleteIcon from "./delete-icon.svg";
 import "./TodoList.scss";
+import NotFound404 from "../NotFound404/NotFound404";
 
 class TodoList extends React.Component {
   state = { activeTab: "All", newItem: "", borderColor: "#020458" };
@@ -92,7 +93,9 @@ class TodoList extends React.Component {
   }
 
   render() {
-    if (!this.props.activeTodoList) {
+    if (this.props.notFound404) {
+      return <NotFound404 />;
+    } else if (!this.props.activeTodoList) {
       return (
         <div className="loading-screen">
           <Spinner animation="border" variant="info" />
@@ -170,6 +173,7 @@ const mapStateToProps = (state) => {
   return {
     activeTodoList: state.activeTodoList,
     todoListRequestLoading: state.todoListRequestLoading,
+    notFound404: state.notFound404,
   };
 };
 
