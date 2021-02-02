@@ -20,4 +20,12 @@ export default combineReducers({
   isFolderCUDLoading: isFolderCUDLoading,
   todoListRequestLoading,
   activeTodoList: reduceFolder,
+  notFound404: (state = false, action) => {
+    switch (action.type) {
+      case "NOT_FOUND_404":
+        return action.payload;
+      default:
+        return state;
+    }
+  },
 });
