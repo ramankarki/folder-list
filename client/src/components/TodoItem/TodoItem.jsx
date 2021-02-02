@@ -6,6 +6,7 @@ import "./TodoItem.scss";
 
 class TodoItem extends React.Component {
   state = {
+    checked: this.props.status === "completed" ? true : false,
     editedValue:
       this.props.todoListRequestLoading === `edit ${this.props.index}`
         ? ""
@@ -32,6 +33,7 @@ class TodoItem extends React.Component {
       status: this.props.status === "completed" ? "pending" : "completed",
       payload: this.props.payload,
     });
+    this.setState({ checked: !this.state.checked });
   };
 
   spinnerIfLoadingDelete = () => {
@@ -120,7 +122,7 @@ class TodoItem extends React.Component {
             <label className={this.checkedItemClass()}>
               <input
                 type="checkbox"
-                checked={this.props.status === "completed" ? true : false}
+                checked={this.state.checked}
                 onChange={this.changeStatus}
               />
               {this.props.payload}
