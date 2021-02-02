@@ -268,3 +268,10 @@ export const deleteAllTodoItem = (id) => async (dispatch, getState) => {
 
   todoListRequestLoading(false, dispatch);
 };
+
+export const disableNotFound = () => (dispatch) => {
+  dispatch({
+    type: "NOT_FOUND_404",
+    payload: false,
+  });
+};
