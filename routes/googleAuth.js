@@ -4,6 +4,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const keys = require("../config/keys");
 
 const User = require("./../model/Users");
+const Folder = require("./../model/Folders");
 const router = express.Router();
 
 passport.serializeUser((user, done) => {
@@ -32,6 +33,17 @@ passport.use(
           email: profile._json.email,
           photo: profile._json.picture,
           googleID: profile.id,
+        }).save();
+
+        await new Folder({
+          userID: user.id,
+          title: "new folder",
+          description:
+            "this folder was created automatically when you signed in.",
+          listData: [
+            { status: "pending", payload: "demo item 1" },
+            { status: "completed", payload: "demo item 2" },
+          ],
         }).save();
       }
 
