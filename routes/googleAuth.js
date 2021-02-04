@@ -44,6 +44,7 @@ passport.use(
             { status: "pending", payload: "demo item 1" },
             { status: "completed", payload: "demo item 2" },
           ],
+          updatedAt: Date.now(),
         }).save();
       }
 
