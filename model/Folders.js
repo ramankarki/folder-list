@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
+const AppError = require("../utils/OperationalError");
 
 const folderSchema = mongoose.Schema({
   userID: String,
   title: {
     type: String,
     required: [true, "Title is required !"],
-    unique: true,
     trim: true,
   },
   description: { type: String, trim: true },
@@ -16,6 +16,32 @@ const folderSchema = mongoose.Schema({
   updatedAt: Date,
   listData: [Object],
 });
+
+folderSchema.pre("save", async function (next) {
+  const doc = await this.constructor.findOne({
+    userID: this.userID,
+    title: this.title,
+  });
+
+  if (doc) {
+    return next(new AppError(400, "user with this folder name already exists"));
+  }
+
+  next();
+});
+
+folderSchema.pre("findByIdAndUpdate", function(next) {
+  const doc = await this.constructor.findOne({
+    userID: this.userID,
+    title: this.title,
+  });
+
+  if (doc) {
+    return next(new AppError(400, "user with this folder name already exists"));
+  }
+
+  next()
+})
 
 const Folder = mongoose.model("folders", folderSchema);
 module.exports = Folder;
