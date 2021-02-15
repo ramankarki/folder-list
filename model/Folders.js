@@ -30,7 +30,7 @@ folderSchema.pre("save", async function (next) {
   next();
 });
 
-folderSchema.pre("findByIdAndUpdate", function(next) {
+folderSchema.pre("findByIdAndUpdate", async function (next) {
   const doc = await this.constructor.findOne({
     userID: this.userID,
     title: this.title,
@@ -40,8 +40,8 @@ folderSchema.pre("findByIdAndUpdate", function(next) {
     return next(new AppError(400, "user with this folder name already exists"));
   }
 
-  next()
-})
+  next();
+});
 
 const Folder = mongoose.model("folders", folderSchema);
 module.exports = Folder;
