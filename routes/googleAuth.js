@@ -28,15 +28,15 @@ passport.use(
       let user = await User.findOne({ googleID: profile.id });
 
       if (!user) {
-        user = await new User({
+        user = await User({
           name: profile._json.given_name,
           email: profile._json.email,
           photo: profile._json.picture,
           googleID: profile.id,
         }).save();
 
-        await new Folder({
-          userID: user.id,
+        await Folder({
+          userID: user._id,
           title: "new folder",
           description:
             "this folder was created automatically when you signed in.",
@@ -46,9 +46,11 @@ passport.use(
           ],
           updatedAt: Date.now(),
         }).save();
-      }
 
-      done(null, user);
+        done(null, user);
+      } else {
+        done(null, user);
+      }
     }
   )
 );
