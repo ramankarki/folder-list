@@ -14,7 +14,7 @@
 }
 
 .todo-title {
-  color: #14ffec;
+  color: #d2d2d2;
   text-align: center;
   font-weight: 700;
   margin-top: 2rem;
@@ -49,8 +49,8 @@
     font-weight: 700;
     padding: 0.5rem 0;
     flex: 1;
-    color: #139288;
-    border-bottom: 2px solid #0c5466;
+    color: #b8683c;
+    border-bottom: 2px solid #b8673c73;
     font-size: 0.9rem;
 
     @media (min-width: 576px) {
@@ -58,21 +58,21 @@
     }
 
     &:hover {
-      color: #14ffec;
+      color: #ffb88f;
     }
 
     &-active {
-      color: #14ffec;
-      border-bottom-color: #14ada1;
+      color: #ffb88f;
+      border-bottom-color: #ffb88f;
     }
   }
 }
 
 .todo-form {
   display: flex;
-  border: 2px solid #0509e6;
+  border: 2px solid #272727;
   border-radius: 100rem;
-  background-color: #020458;
+  background-color: #272727;
   margin-top: 1rem;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
@@ -83,7 +83,7 @@
     background-color: transparent;
     border: none;
     padding: 0.6rem 1.1rem;
-    color: #14ffec;
+    color: #d2d2d2;
     &::placeholder {
       color: rgb(177, 174, 174);
     }
@@ -93,16 +93,16 @@
     display: block;
     height: 100%;
     border: none;
-    background-color: #15cebe;
+    background-color: #df8654;
     font-size: 1.3rem;
     border-radius: 10rem;
     padding: 0.4rem 1.5rem;
     font-weight: 700;
-    color: rgb(58, 58, 58);
+    color: #1d1d1d;
 
     @media (min-width: 992px) {
       &:hover {
-        background-color: #14ada1;
+        background-color: #b8683c;
       }
     }
 

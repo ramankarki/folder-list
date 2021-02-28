@@ -14,28 +14,28 @@
 }
 
 .add-folder-modal {
-  background-color: #323232;
+  background-color: #1e1e1e;
   border-radius: 1rem;
   max-width: 400px;
   width: 80%;
   padding: 2rem;
-  color: #14ffec;
+  color: #df8654;
 
   input {
     width: 100%;
     background-color: inherit;
     border: none;
-    border-bottom: 1px solid #0e8a7f;
+    border-bottom: 1px solid #b8683c;
     margin: 0.4rem 0 1rem;
-    color: #14ffec;
+    color: #df8654;
     font-size: 1.1rem;
 
     &:focus {
-      border-bottom-color: #14ffec;
+      border-bottom-color: #ffb88f;
     }
 
     &::placeholder {
-      color: #0f968a;
+      color: #df8654;
     }
   }
 }
@@ -44,8 +44,8 @@
   display: block;
   margin-left: auto;
   border: none;
-  background-color: #14ffec;
-  color: #323232;
+  background-color: #df8654;
+  color: #1d1d1d;
   font-size: 1.1rem;
   font-weight: 700;
   padding: 0.5rem 1.3rem;
@@ -55,7 +55,7 @@
 
   @media (min-width: 992px) {
     &:hover {
-      background-color: #11a89c;
+      background-color: #b8683c;
     }
   }
 
@@ -86,7 +86,7 @@
 
 .bi-x {
   font-size: 2.5rem;
-  color: #14ffec;
+  color: #df8654;
   cursor: pointer;
   fill: #323232;
 }

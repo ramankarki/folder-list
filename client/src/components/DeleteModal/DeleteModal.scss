@@ -1,5 +1,5 @@
 .delete-modal {
-  background-color: #323232;
+  background-color: #1e1e1e;
   padding: 2rem;
   border-radius: 1rem;
   width: 90%;
@@ -12,7 +12,7 @@
 }
 
 .delete-heading {
-  color: #fd4141;
+  color: #e45f5f;
   font-weight: 700;
 }
 
@@ -39,12 +39,12 @@
 
 .delete-btn {
   margin-right: 1rem;
-  background-color: #bb0c0c;
-  color: white;
+  background-color: #e45f5f;
+  color: #1d1d1d;
 
   @media (min-width: 950px) {
     &:hover {
-      background-color: #9c0d0d;
+      background-color: #c04e4e;
     }
   }
 }

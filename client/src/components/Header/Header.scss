@@ -1,5 +1,5 @@
 .header {
-  background-color: #000272;
+  background-color: #111111;
   padding: 1rem 0 0;
 }
 
@@ -8,11 +8,11 @@
 }
 
 .logo {
-  color: rgb(211, 211, 211);
+  color: #cfcfcf;
   font-weight: 700;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   @media (min-width: 576px) {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
   }
 
   &-img {
@@ -20,7 +20,7 @@
   }
 
   &:hover {
-    color: #63e0c1;
+    color: #df8654;
   }
 }
 
@@ -29,15 +29,17 @@
 }
 
 .login-button {
-  border: 1px solid #9cffe7;
-  background-color: inherit;
-  color: white;
+  border: none;
+  background-color: #df8654;
+  color: #1d1d1d;
   border-radius: 0.3rem;
-  padding: 0.4rem 1rem;
+  padding: 0.7rem 1rem;
   display: block;
+  font-weight: bold;
 
   &:hover {
-    color: #63e0c1;
+    color: #1d1d1d;
+    background-color: #b8683c;
     text-decoration: none;
   }
 }
@@ -48,6 +50,7 @@
   color: rgb(255, 255, 255);
   padding: 0.5rem 1rem;
   border-radius: 0.4rem;
+  font-weight: bold;
   position: absolute;
   right: 0;
   margin-top: 0.5rem;
@@ -81,7 +84,7 @@
 }
 
 .userEmail {
-  color: #9cffe7;
+  color: #df8654;
   font-size: 0.8rem;
   font-weight: 400;
 
@@ -90,7 +93,7 @@
   }
 
   .bi {
-    color: #9cffe7;
+    color: #df8654;
   }
 }
 
@@ -100,7 +103,7 @@
     width: 40px;
     border-radius: 100rem;
     margin-left: 0.5rem;
-    border: 2px solid #9cffe7;
+    border: 2px solid #cfcfcf;
     box-shadow: #020333 0px 0px 30px 2px;
   }
 }

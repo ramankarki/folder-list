@@ -10,7 +10,7 @@ import "./TodoList.scss";
 import NotFound404 from "../NotFound404/NotFound404";
 
 class TodoList extends React.Component {
-  state = { activeTab: "All", newItem: "", borderColor: "#020458" };
+  state = { activeTab: "All", newItem: "", borderColor: "#272727" };
 
   inputField = React.createRef();
 
@@ -136,8 +136,8 @@ class TodoList extends React.Component {
             </header>
             {this.state.activeTab !== "Completed" ? (
               <form
-                onFocus={() => this.setState({ borderColor: "#0509e6" })}
-                onBlur={() => this.setState({ borderColor: "#020458" })}
+                onFocus={() => this.setState({ borderColor: "#DF8654" })}
+                onBlur={() => this.setState({ borderColor: "#272727" })}
                 style={{ borderColor: this.state.borderColor }}
                 onSubmit={this.onTodoItemSubmit}
                 className="todo-form"
